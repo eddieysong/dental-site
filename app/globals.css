@@ -1032,7 +1032,7 @@ details > p {
   border: 1px solid var(--line);
   border-radius: 24px;
   box-shadow: var(--shadow);
-  min-height: 540px;
+  min-height: 770px;
   overflow: hidden;
 }
 
@@ -1063,55 +1063,14 @@ details > p {
   width: 12px;
 }
 
-.calendar-body {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-height: 450px;
-  padding: 2.5rem 1.3rem;
-  text-align: center;
+.calendly-inline-widget {
+  height: 700px;
+  min-width: 320px;
+  width: 100%;
 }
 
-.calendar-body h2 {
-  font-size: clamp(1.9rem, 7vw, 3rem);
-  max-width: 13ch;
-}
-
-.calendar-body p {
-  color: var(--muted);
-  max-width: 31rem;
-}
-
-.calendar-icon {
-  align-items: center;
-  background: var(--mint);
-  border-radius: 50%;
-  color: var(--teal);
-  display: flex;
-  font-size: 2.4rem;
-  height: 78px;
-  justify-content: center;
-  margin-bottom: 1.5rem;
-  width: 78px;
-}
-
-.time-slot-preview {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  justify-content: center;
-  margin-top: 1rem;
-}
-
-.time-slot-preview span {
-  background: var(--mint-soft);
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  color: var(--teal);
-  font-size: 0.72rem;
-  font-weight: 750;
-  padding: 0.55rem 0.85rem;
+.calendly-inline-widget iframe {
+  min-height: 700px;
 }
 
 .booking-aside {
@@ -1340,6 +1299,10 @@ textarea {
   width: 100%;
 }
 
+.form-honeypot {
+  display: none;
+}
+
 input {
   min-height: 50px;
 }
@@ -1378,6 +1341,16 @@ textarea::placeholder {
   font-size: 0.78rem;
   margin: 1rem 0 0;
   padding: 0.8rem;
+}
+
+.form-error {
+  background: #fbe5df;
+  border-left-color: var(--coral-dark);
+}
+
+.button:disabled {
+  cursor: wait;
+  opacity: 0.68;
 }
 
 .contact-info {
