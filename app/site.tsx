@@ -4,7 +4,7 @@ import { FormEvent, useEffect, useState } from "react";
 
 export type SitePage = "home" | "booking" | "faq" | "contact";
 type Lang = "en" | "zh";
-type FormStatus = "idle" | "sending" | "sent" | "error";
+type FormStatus = "idle" | "sending" | "sent";
 
 declare global {
   interface Window {
@@ -15,7 +15,7 @@ declare global {
 }
 
 const calendlyUrl = "https://calendly.com/kathy-liu007/30min";
-const formSubmitUrl = "https://formsubmit.co/ajax/kathy.liu007@gmail.com";
+const formSubmitUrl = "https://formsubmit.co/kathy.liu007@gmail.com";
 
 const copy = {
   en: {
@@ -212,7 +212,6 @@ const copy = {
       send: "Send inquiry",
       sending: "Sending…",
       sent: "Thanks—your message has been sent to Kathy.",
-      error: "We couldn’t send your message. Please try again or email Kathy directly at kathy.liu007@gmail.com.",
       privacy: "Your message is emailed to Kathy. Please do not include health card numbers or private medical information.",
       visitTitle: "Service area",
       visitBody: "Toronto, Richmond Hill, Markham, Vaughan, and Mississauga.",
@@ -334,7 +333,6 @@ const copy = {
       send: "发送留言",
       sending: "正在发送…",
       sent: "谢谢！你的留言已经发送给 Kathy。",
-      error: "发送失败，请稍后再试，或直接发邮件到 kathy.liu007@gmail.com。",
       privacy: "留言会发送到 Kathy 的邮箱。请不要填写健康卡号码或私人医疗信息。",
       visitTitle: "服务地区", visitBody: "多伦多、列治文山、万锦、旺市和密西沙加。",
       replyTitle: "回复时间", replyBody: "收到消息后，我们会尽快回复你。",
@@ -364,8 +362,10 @@ export function Site({ page }: { page: SitePage }) {
 
   useEffect(() => {
     const selected = new URLSearchParams(window.location.search).get("lang");
+    const sent = new URLSearchParams(window.location.search).get("sent");
     const next: Lang = selected === "zh" ? "zh" : "en";
     setLang(next);
+    if (sent === "1") setFormStatus("sent");
     document.documentElement.lang = next === "zh" ? "zh-Hans" : "en";
   }, []);
 
@@ -416,34 +416,13 @@ export function Site({ page }: { page: SitePage }) {
     { key: "contact", label: t.nav.contact, path: "/contact" },
   ];
 
-  const submitContact = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const prepareContactSubmit = (event: FormEvent<HTMLFormElement>) => {
     const form = event.currentTarget;
-    const fields = Object.fromEntries(new FormData(form).entries());
+    const nextInput = form.elements.namedItem("_next") as HTMLInputElement;
+    const urlInput = form.elements.namedItem("_url") as HTMLInputElement;
+    nextInput.value = `${window.location.origin}/contact?lang=${lang}&sent=1`;
+    urlInput.value = window.location.href;
     setFormStatus("sending");
-
-    try {
-      const response = await fetch(formSubmitUrl, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...fields,
-          _subject: "New HomeSmile website inquiry",
-          _template: "table",
-          _url: window.location.href,
-        }),
-      });
-      const result = await response.json() as { success?: boolean };
-      if (!response.ok || result.success === false) throw new Error("Unable to send inquiry");
-
-      form.reset();
-      setFormStatus("sent");
-    } catch {
-      setFormStatus("error");
-    }
   };
 
   return (
@@ -683,9 +662,13 @@ export function Site({ page }: { page: SitePage }) {
               <img src="/images/clean-smile.jpg" alt={t.home.imageAlt} width="1200" height="1800" />
             </section>
             <section className="contact-layout section-pad">
-              <form className="contact-form" onSubmit={submitContact}>
+              <form className="contact-form" action={formSubmitUrl} method="POST" onSubmit={prepareContactSubmit}>
                 <div className="form-heading"><span>01</span><h2>{t.contact.formTitle}</h2></div>
                 <div className="form-grid">
+                  <input type="hidden" name="_subject" defaultValue="New HomeSmile website inquiry" />
+                  <input type="hidden" name="_template" defaultValue="table" />
+                  <input type="hidden" name="_next" defaultValue="" />
+                  <input type="hidden" name="_url" defaultValue="" />
                   <input className="form-honeypot" name="_honey" tabIndex={-1} autoComplete="off" aria-hidden="true" />
                   <label><span>{t.contact.name}</span><input required name="name" placeholder={t.contact.namePh} autoComplete="name" /></label>
                   <label><span>{t.contact.email}</span><input required name="email" type="email" placeholder={t.contact.emailPh} autoComplete="email" /></label>
@@ -695,11 +678,7 @@ export function Site({ page }: { page: SitePage }) {
                 </div>
                 <div className="form-footer">
                   <div><button className="button" type="submit" disabled={formStatus === "sending"}>{formStatus === "sending" ? t.contact.sending : t.contact.send} <span>→</span></button><small>{t.contact.privacy}</small></div>
-                  {formStatus !== "idle" && formStatus !== "sending" && (
-                    <p className={`form-ready ${formStatus === "error" ? "form-error" : ""}`} role={formStatus === "error" ? "alert" : "status"}>
-                      {formStatus === "sent" ? t.contact.sent : t.contact.error}
-                    </p>
-                  )}
+                  {formStatus === "sent" && <p className="form-ready" role="status">{t.contact.sent}</p>}
                 </div>
               </form>
               <aside className="contact-info">
