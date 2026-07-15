@@ -1032,6 +1032,8 @@ details > p {
   border: 1px solid var(--line);
   border-radius: 24px;
   box-shadow: var(--shadow);
+  height: 770px;
+  max-height: 770px;
   min-height: 770px;
   overflow: hidden;
 }
@@ -1064,13 +1066,20 @@ details > p {
 }
 
 .calendly-inline-widget {
-  height: 700px;
+  height: 700px !important;
+  max-height: 700px !important;
+  min-height: 700px !important;
   min-width: 320px;
+  overflow: hidden !important;
+  position: relative;
   width: 100%;
 }
 
 .calendly-inline-widget iframe {
-  min-height: 700px;
+  height: 700px !important;
+  max-height: 700px !important;
+  min-height: 700px !important;
+  width: 100% !important;
 }
 
 .booking-aside {
@@ -1707,14 +1716,6 @@ textarea::placeholder {
     align-items: start;
     gap: 2rem;
     grid-template-columns: minmax(0, 1.5fr) minmax(310px, 0.7fr);
-  }
-
-  .calendar-placeholder {
-    min-height: 650px;
-  }
-
-  .calendar-body {
-    min-height: 555px;
   }
 
   .info-card {
