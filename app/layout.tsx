@@ -12,11 +12,11 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     metadataBase: base,
     title: {
-      default: "Kathy Liu | Mobile Dental Hygiene",
-      template: "%s | Kathy Liu Mobile Dental Hygiene",
+      default: "HomeSmile | Mobile Dental Hygiene",
+      template: "%s | HomeSmile Mobile Dental Hygiene",
     },
     description:
-      "Professional dental hygiene care in the comfort of your home. 10+ years of experience and CDCP-eligible services.",
+      "Professional at-home dental cleanings and teeth whitening. Canadian Dental Care Plan (CDCP) and major private insurance accepted.",
     icons: {
       icon: "/favicon.svg",
       shortcut: "/favicon.svg",
@@ -24,17 +24,17 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       title: "A fresh, healthy smile—without leaving home.",
       description:
-        "Mobile dental hygiene care from Kathy Liu. 10+ years of experience, CDCP-eligible, and delivered at home.",
+        "At-home dental cleanings and teeth whitening from Kathy Liu. Canadian Dental Care Plan (CDCP) and major private insurance accepted.",
       type: "website",
       locale: "en_CA",
       alternateLocale: "zh_CA",
-      siteName: "Kathy Liu Mobile Dental Hygiene",
-      images: [{ url: socialImage, width: 1200, height: 630, alt: "Kathy Liu Mobile Dental Hygiene" }],
+      siteName: "HomeSmile Mobile Dental Hygiene",
+      images: [{ url: socialImage, width: 900, height: 473, alt: "HomeSmile Mobile Dental Hygiene" }],
     },
     twitter: {
       card: "summary_large_image",
-      title: "Kathy Liu Mobile Dental Hygiene",
-      description: "Professional dental hygiene care, right at home.",
+      title: "HomeSmile Mobile Dental Hygiene",
+      description: "Professional cleaning and whitening, right at home.",
       images: [socialImage],
     },
   };

@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { Site } from "./site";
 
 export const metadata: Metadata = {
-  title: "At-Home Dental Hygiene",
+  title: "HomeSmile Mobile Dental Hygiene",
   description:
-    "Gentle, professional mobile dental hygiene care from Kathy Liu, with 10+ years of experience and CDCP-eligible services.",
+    "At-home dental cleanings and teeth whitening from Kathy Liu. Canadian Dental Care Plan (CDCP) and major private insurance accepted.",
 };
 
 export default function HomePage() {

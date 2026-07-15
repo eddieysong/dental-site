@@ -3,7 +3,7 @@ import { Site } from "../site";
 
 export const metadata: Metadata = {
   title: "Book an At-Home Visit",
-  description: "Request a convenient at-home dental hygiene appointment with Kathy Liu.",
+  description: "Request an at-home dental cleaning or teeth whitening appointment with Kathy Liu at HomeSmile.",
 };
 
 export default function BookingPage() {

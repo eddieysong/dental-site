@@ -8,9 +8,9 @@ type Lang = "en" | "zh";
 const copy = {
   en: {
     language: "Language",
-    notice: "CDCP-eligible care • Appointments in the comfort of your home",
-    brand: "Kathy Liu",
-    brandLine: "Mobile Dental Hygiene",
+    notice: "Canadian Dental Care Plan (CDCP) + major private insurance accepted",
+    brand: "HomeSmile",
+    brandLine: "Mobile Dental Hygiene · Kathy Liu",
     nav: { home: "Home", booking: "Book", faq: "FAQ", contact: "Contact" },
     menu: "Menu",
     close: "Close",
@@ -22,8 +22,8 @@ const copy = {
       intro:
         "Kathy brings gentle, professional dental hygiene care to you. No commute, no waiting room, and no rushing your day.",
       imageAlt: "A person smiling with clean, healthy teeth",
-      floatingOne: "10+ years",
-      floatingOneSub: "of experience",
+      floatingOne: "Insurance",
+      floatingOneSub: "major plans welcome",
       floatingTwo: "Your home",
       floatingTwoSub: "your comfort",
       trustTitle: "Dental hygiene that fits your life",
@@ -31,14 +31,14 @@ const copy = {
         "A calm, convenient option for busy adults, seniors, caregivers, and anyone who feels more comfortable at home.",
       pillars: [
         {
-          number: "10+",
-          title: "Years of experience",
-          body: "Thoughtful care shaped by more than a decade of hands-on dental hygiene experience.",
+          number: "INSURANCE",
+          title: "Private insurance welcome",
+          body: "We accept most major private dental insurance plans.",
         },
         {
           number: "CDCP",
-          title: "Eligible services",
-          body: "CDCP-eligible care with clear guidance about coverage before your appointment.",
+          title: "Canadian Dental Care Plan",
+          body: "Eligible services are available through the Canadian Dental Care Plan (CDCP), with coverage confirmed before treatment.",
         },
         {
           number: "HOME",
@@ -47,7 +47,7 @@ const copy = {
         },
       ],
       serviceEyebrow: "What to expect",
-      serviceTitle: "Complete preventive care, brought to you",
+      serviceTitle: "Cleanings, preventive care, and whitening—brought to you",
       serviceIntro:
         "Every visit begins with a conversation about your health, comfort, and goals.",
       services: [
@@ -63,6 +63,10 @@ const copy = {
           title: "Practical home care",
           body: "Simple, personalized advice to make brushing and interdental care easier every day.",
         },
+        {
+          title: "Teeth whitening",
+          body: "Professional whitening options designed around your smile goals, comfort, and oral health.",
+        },
       ],
       comfortEyebrow: "Care on your terms",
       comfortTitle: "Your space. Your schedule. Your peace of mind.",
@@ -76,9 +80,9 @@ const copy = {
       ],
       comfortAlt: "A patient receiving gentle dental care",
       aboutEyebrow: "Meet Kathy",
-      aboutTitle: "Experienced care with a personal touch",
+      aboutTitle: "Gentle care with a personal touch",
       aboutBody:
-        "Kathy Liu is an independent mobile dental hygienist with more than 10 years of experience. Her approach is gentle, unhurried, and focused on helping each client feel informed and at ease.",
+        "Kathy Liu is an independent mobile dental hygienist who brings calm, attentive care into the comfort of home. Her approach is gentle, unhurried, and focused on helping every client feel informed and at ease.",
       aboutQuote: "Good oral health should feel approachable—and fit into real life.",
       aboutAlt: "Dental hygienist holding a model of teeth",
       stepsEyebrow: "Simple from start to finish",
@@ -94,21 +98,21 @@ const copy = {
         },
         {
           title: "Relax and smile",
-          body: "Receive professional preventive care, then carry on with your day—already at home.",
+          body: "Finish your cleaning or whitening visit, then carry on with your day—already at home.",
         },
       ],
       faqEyebrow: "Good to know",
       faqTitle: "Questions before your first visit?",
-      faqBody: "Learn about the setup, CDCP coverage, appointment length, and what to prepare.",
+      faqBody: "Learn about the setup, insurance, the Canadian Dental Care Plan (CDCP), whitening, and what to prepare.",
       faqCta: "Read all FAQs",
       finalTitle: "Ready for a cleaner smile—at home?",
-      finalBody: "Request a visit with Kathy and make your next dental hygiene appointment the easiest one yet.",
+      finalBody: "Request a visit with Kathy and make your next cleaning or whitening appointment the easiest one yet.",
     },
     booking: {
       eyebrow: "Book your visit",
-      title: "Your next cleaning can come to you.",
+      title: "Your next cleaning or whitening visit can come to you.",
       intro:
-        "Choose a time that works for you. Kathy will confirm your location, care needs, and CDCP details before the visit.",
+        "Choose a time that works for you. Kathy will confirm your location, care needs, and Canadian Dental Care Plan (CDCP) or private insurance details before the visit.",
       placeholderTitle: "Online booking is almost ready",
       placeholderBody:
         "Your Calendly scheduling widget will live here. Once connected, clients can choose an available at-home appointment in a few taps.",
@@ -118,11 +122,11 @@ const copy = {
       checklist: [
         "Have your address or postal code ready so the service area can be confirmed.",
         "Share any mobility, accessibility, or comfort needs in advance.",
-        "If using CDCP, keep your member information nearby for coverage confirmation.",
+        "If using the Canadian Dental Care Plan (CDCP) or private insurance, keep your plan information nearby for coverage confirmation.",
       ],
-      cdcpTitle: "Using the Canadian Dental Care Plan?",
+      cdcpTitle: "Canadian Dental Care Plan & private insurance",
       cdcpBody:
-        "Eligible services may be covered through CDCP. Coverage and co-payments vary, so your benefits will be confirmed before treatment. Please do not send private health information through an unsecured message.",
+        "We provide eligible services through the Canadian Dental Care Plan (CDCP) and accept most major private dental insurance plans. Coverage, co-payments, and frequency limits vary, so benefits will be confirmed before treatment. Please do not send private health information through an unsecured message.",
       supportTitle: "Not sure what to book?",
       supportBody: "Send a general inquiry and Kathy will help you choose the right visit.",
       supportCta: "Contact Kathy",
@@ -131,8 +135,8 @@ const copy = {
       eyebrow: "Frequently asked questions",
       title: "Everything you need to feel ready.",
       intro:
-        "A mobile dental hygiene visit is simple. Here are answers about care, setup, payment, and CDCP eligibility.",
-      categories: ["Your visit", "Care & safety", "Coverage"],
+        "A mobile dental hygiene visit is simple. Here are answers about care, setup, whitening, payment, and insurance coverage.",
+      categories: ["Your visit", "Care & safety", "CDCP & insurance"],
       closingTitle: "Still have a question?",
       closingBody: "Send Kathy a note and she’ll help you prepare for a comfortable visit.",
     },
@@ -150,12 +154,16 @@ const copy = {
         a: "Timing depends on your oral health needs and whether it is your first visit. Kathy will provide an estimate when your appointment is confirmed.",
       },
       {
-        q: "Are your services CDCP eligible?",
-        a: "Yes, eligible dental hygiene services can be provided under the Canadian Dental Care Plan. Coverage, co-payments, and frequency limits depend on your plan details and will be confirmed before treatment.",
+        q: "Do you accept the Canadian Dental Care Plan and private insurance?",
+        a: "Yes. We provide eligible services through the Canadian Dental Care Plan (CDCP) and accept most major private dental insurance plans. Coverage, co-payments, and frequency limits depend on your plan details.",
       },
       {
-        q: "Do you direct bill insurance or CDCP?",
-        a: "Billing arrangements will be confirmed when you book. Have your plan or CDCP information available so Kathy can explain the options that apply to you.",
+        q: "How does billing and reimbursement work?",
+        a: "Billing arrangements will be confirmed when you book. Have your Canadian Dental Care Plan or private insurance information available so Kathy can explain the options that apply to you.",
+      },
+      {
+        q: "Do you offer teeth whitening?",
+        a: "Yes. Kathy offers professional teeth whitening and will review your oral health, goals, and sensitivity before recommending an option.",
       },
       {
         q: "Is mobile dental hygiene safe and sanitary?",
@@ -203,123 +211,125 @@ const copy = {
         "Mobile hygiene is not an emergency service. For severe pain, swelling, trauma, or uncontrolled bleeding, contact a dentist or urgent medical care.",
     },
     footer: {
-      line: "Professional dental hygiene care in the comfort of your home.",
-      legal: "Kathy Liu (DBA) • Independent Mobile Dental Hygiene",
-      note: "CDCP eligibility and coverage vary by client and service.",
+      line: "Professional cleaning and whitening in the comfort of your home.",
+      legal: "HomeSmile Mobile Dental Hygiene • Care by Kathy Liu",
+      note: "Canadian Dental Care Plan and private insurance coverage vary by plan and service.",
     },
   },
   zh: {
-    language: "語言",
-    notice: "符合 CDCP 資格的服務 • 在舒適家中接受護理",
-    brand: "Kathy Liu",
-    brandLine: "流動牙科衛生服務",
-    nav: { home: "首頁", booking: "預約", faq: "常見問題", contact: "聯絡" },
-    menu: "選單",
-    close: "關閉",
-    book: "預約到府服務",
-    learn: "了解服務流程",
+    language: "语言",
+    notice: "支持加拿大牙科保健计划（CDCP）和多数私人保险 • 舒舒服服在家洁牙",
+    brand: "HomeSmile",
+    brandLine: "Kathy Liu 到家牙齿护理",
+    nav: { home: "首页", booking: "预约", faq: "常见问题", contact: "联系" },
+    menu: "菜单",
+    close: "关闭",
+    book: "预约到家服务",
+    learn: "看看服务流程",
     home: {
-      eyebrow: "專業流動牙科衛生服務",
-      title: "清新健康笑容，足不出戶也能擁有。",
-      intro: "Kathy 將溫和、專業的牙科衛生護理帶到您家。毋須通勤、毋須等候，也不必打亂一天的安排。",
-      imageAlt: "展現潔淨健康牙齒的笑容",
-      floatingOne: "10+ 年",
-      floatingOneSub: "專業經驗",
-      floatingTwo: "安坐家中",
-      floatingTwoSub: "自在舒適",
-      trustTitle: "配合您生活的牙科衛生護理",
-      trustIntro: "適合忙碌成人、長者、照顧者，以及在家中感到更自在的每一位客戶。",
+      eyebrow: "专业到家牙齿护理",
+      title: "不用出门，也能拥有清爽健康的笑容。",
+      intro: "Kathy 把专业、温柔的牙齿护理带到你家。省下开车、停车和候诊的时间，安心坐在家里就好。",
+      imageAlt: "开心展示洁净健康笑容的人",
+      floatingOne: "私人保险",
+      floatingOneSub: "多数主流计划都接受",
+      floatingTwo: "就在家里",
+      floatingTwoSub: "轻松又自在",
+      trustTitle: "牙齿护理，也可以很轻松",
+      trustIntro: "适合忙碌的上班族、长者、照顾者，也适合更喜欢在熟悉环境里接受护理的你。",
       pillars: [
-        { number: "10+", title: "多年專業經驗", body: "超過十年的臨床牙科衛生經驗，提供細心周到的護理。" },
-        { number: "CDCP", title: "合資格服務", body: "提供符合 CDCP 資格的護理，並於預約前清楚說明保障。" },
-        { number: "到府", title: "留在舒適家中", body: "Kathy 攜帶服務所需的專業設備親自到訪。" },
+        { number: "保险", title: "支持私人保险", body: "接受大多数主流私人牙科保险计划，预约前会帮你确认相关信息。" },
+        { number: "CDCP", title: "加拿大牙科保健计划", body: "提供加拿大牙科保健计划（CDCP）涵盖的合资格服务，治疗前会先确认保障。" },
+        { number: "到家", title: "留在熟悉的家里", body: "Kathy 会带上服务需要的专业设备，直接到你家。" },
       ],
-      serviceEyebrow: "服務內容",
-      serviceTitle: "全面預防護理，直接送到您家",
-      serviceIntro: "每次到訪都先了解您的健康狀況、舒適需要和護理目標。",
+      serviceEyebrow: "可以做什么",
+      serviceTitle: "从洁牙到美白，专业护理送到家",
+      serviceIntro: "每次服务都会先聊聊你的口腔状况、舒适需求和想要改善的地方。",
       services: [
-        { title: "口腔評估與潔牙", body: "仔細評估口腔健康，並專業清除牙菌斑和牙石。" },
-        { title: "拋光與氟化護理", body: "按您的需要和選擇提供牙齒拋光及氟化建議。" },
-        { title: "實用居家護理", body: "提供簡單個人化建議，讓每天刷牙和牙縫清潔更容易。" },
+        { title: "口腔检查和洁牙", body: "仔细查看口腔健康状况，再专业清除牙菌斑和牙结石。" },
+        { title: "抛光和氟化护理", body: "根据你的需要，提供牙齿抛光和氟化护理建议。" },
+        { title: "日常护理建议", body: "给你简单、实用的刷牙和牙缝清洁建议，让每天护理更容易。" },
+        { title: "牙齿美白", body: "根据你的牙齿状况、敏感度和理想效果，提供专业美白选择。" },
       ],
-      comfortEyebrow: "按您的需要接受護理",
-      comfortTitle: "您的空間、您的時間、您的安心。",
-      comfortBody: "到府服務免去交通、泊車和候診時間。Kathy 會設置整潔舒適的護理空間，專心照顧您的需要。",
-      comfortList: ["毋須通勤或在診所候診", "熟悉環境，護理過程更放鬆", "方便照顧者和家庭安排", "遵守專業感染預防程序"],
-      comfortAlt: "在舒適環境接受溫和牙科護理的客戶",
-      aboutEyebrow: "認識 Kathy",
-      aboutTitle: "豐富經驗，貼心照顧",
-      aboutBody: "Kathy Liu 是獨立流動牙科衛生師，擁有超過十年經驗。她以溫和、不催促的方式，讓每位客戶了解自己的口腔健康並安心接受護理。",
-      aboutQuote: "良好口腔健康應該簡單易行，也能融入日常生活。",
-      aboutAlt: "牙科衛生師手持牙齒模型",
-      stepsEyebrow: "由開始到完成都很簡單",
-      stepsTitle: "到府服務流程",
+      comfortEyebrow: "按你的节奏来",
+      comfortTitle: "熟悉的空间，合适的时间，更安心的护理。",
+      comfortBody: "到家服务省下交通、停车和候诊时间。Kathy 会布置干净舒适的护理区域，把注意力都放在你身上。",
+      comfortList: ["不用开车，也不用在诊所等候", "熟悉的环境，整个人更放松", "方便长者、照顾者和全家安排", "遵循专业感染预防和消毒流程"],
+      comfortAlt: "在舒适环境中接受温和牙齿护理的客户",
+      aboutEyebrow: "认识 Kathy",
+      aboutTitle: "温柔、细心，不赶时间",
+      aboutBody: "Kathy Liu 是一位独立执业的到家牙科保健师。她希望把专业护理做得更轻松、更有人情味，让每位客户都能听明白、放下心。",
+      aboutQuote: "照顾好牙齿，不该是一件压力很大的事。",
+      aboutAlt: "牙科保健师手里拿着牙齿模型",
+      stepsEyebrow: "从预约到结束都很简单",
+      stepsTitle: "到家服务怎么进行",
       steps: [
-        { title: "選擇時間", body: "提出預約，並提供地點及無障礙或舒適需要。" },
-        { title: "Kathy 親自到訪", body: "通常只需一小片光線充足的空間和電源插座。" },
-        { title: "輕鬆享受清新笑容", body: "完成專業預防護理後，您已在家中，可立即繼續一天的生活。" },
+        { title: "选一个方便的时间", body: "提交预约，再告诉我们你的地址和无障碍或舒适需求。" },
+        { title: "Kathy 到你家", body: "通常准备一小块光线好的空间和一个电源插座就可以了。" },
+        { title: "轻松完成护理", body: "洁牙或美白结束后，你已经在家，可以直接继续当天的安排。" },
       ],
-      faqEyebrow: "預約前須知",
-      faqTitle: "首次到訪前有疑問？",
-      faqBody: "了解所需空間、CDCP 保障、所需時間和準備事項。",
-      faqCta: "查看所有常見問題",
-      finalTitle: "準備好在家中擁有更潔淨笑容嗎？",
-      finalBody: "向 Kathy 提出預約，讓下次牙科衛生護理變得前所未有地輕鬆。",
+      faqEyebrow: "预约前可以先看看",
+      faqTitle: "第一次到家服务，有问题很正常。",
+      faqBody: "这里整理了服务准备、加拿大牙科保健计划（CDCP）、私人保险、牙齿美白和时间安排。",
+      faqCta: "查看所有常见问题",
+      finalTitle: "准备好在家轻松护理牙齿了吗？",
+      finalBody: "预约 Kathy 的到家服务，让下一次洁牙或美白更省心。",
     },
     booking: {
-      eyebrow: "預約到府服務",
-      title: "下次潔牙，可以直接來到您家。",
-      intro: "選擇合適時間。Kathy 會在到訪前確認地點、護理需要及 CDCP 資料。",
-      placeholderTitle: "網上預約即將啟用",
-      placeholderBody: "Calendly 預約工具將顯示於此。連接後，客戶只需幾下點按即可選擇到府服務時間。",
-      placeholderLabel: "Calendly 預約區域",
-      placeholderNote: "預約系統預留位置",
-      checklistTitle: "預約前準備",
-      checklist: ["準備地址或郵區編號，以便確認服務範圍。", "預先告知行動、無障礙或舒適方面的需要。", "如使用 CDCP，請準備會員資料以確認保障。"],
-      cdcpTitle: "使用加拿大牙科保健計劃？",
-      cdcpBody: "合資格服務可能獲 CDCP 保障。保障和共同付款因人而異，治療前會先確認。請勿透過不安全訊息傳送私人健康資料。",
-      supportTitle: "不確定應預約哪項服務？",
-      supportBody: "傳送一般查詢，Kathy 會協助您選擇合適到訪。",
-      supportCta: "聯絡 Kathy",
+      eyebrow: "预约到家服务",
+      title: "下一次洁牙或美白，让护理直接来找你。",
+      intro: "选一个适合你的时间。到访前，Kathy 会确认地址、护理需求，以及加拿大牙科保健计划（CDCP）或私人保险信息。",
+      placeholderTitle: "在线预约马上就好",
+      placeholderBody: "Calendly 预约工具会放在这里。连接后，几下点击就能选好到家服务时间。",
+      placeholderLabel: "Calendly 预约区域",
+      placeholderNote: "预约系统预留位置",
+      checklistTitle: "预约前准备一下",
+      checklist: ["准备好地址或邮政编码，方便确认服务范围。", "提前告诉我们行动、无障碍或舒适方面的需求。", "如果使用 CDCP 或私人保险，请准备好计划信息，方便确认保障。"],
+      cdcpTitle: "加拿大牙科保健计划和私人保险",
+      cdcpBody: "我们提供加拿大牙科保健计划（CDCP）涵盖的合资格服务，也接受大多数主流私人牙科保险。具体保障、共付金额和次数限制以你的计划为准，治疗前会先确认。请不要通过普通留言发送私人健康信息。",
+      supportTitle: "不确定该预约哪项服务？",
+      supportBody: "发一条简单消息给 Kathy，她会帮你选。",
+      supportCta: "联系 Kathy",
     },
     faqPage: {
-      eyebrow: "常見問題",
-      title: "讓您安心準備的所有資訊。",
-      intro: "流動牙科衛生服務其實很簡單。以下解答護理、設置、付款和 CDCP 資格等問題。",
-      categories: ["到府服務", "護理與安全", "保障資料"],
-      closingTitle: "還有其他問題？",
-      closingBody: "傳送訊息給 Kathy，她會協助您準備舒適的到府護理。",
+      eyebrow: "常见问题",
+      title: "提前了解，预约更安心。",
+      intro: "到家牙齿护理其实很简单。这里整理了服务流程、安全、牙齿美白、付款和保险信息。",
+      categories: ["到家服务", "护理和安全", "CDCP 和保险"],
+      closingTitle: "还有问题？",
+      closingBody: "给 Kathy 留个言，她会帮你轻松准备第一次到家服务。",
     },
     faqs: [
-      { q: "到府牙科衛生服務包括甚麼？", a: "Kathy 會先了解您的健康紀錄和疑慮，進行口腔健康評估，並提供合適的預防護理，包括刮牙、拋光、氟化護理及個人化居家護理建議。" },
-      { q: "家中需要準備甚麼？", a: "通常只需一小片整潔空間、舒適的護理位置、充足光線和電源插座。Kathy 會在到訪前與您確認。" },
-      { q: "一次服務需要多久？", a: "時間視乎您的口腔健康需要及是否首次到訪。Kathy 會在確認預約時提供估計。" },
-      { q: "服務符合 CDCP 資格嗎？", a: "符合資格的牙科衛生服務可納入加拿大牙科保健計劃。實際保障、共同付款和次數限制視個人計劃而定，治療前會先確認。" },
-      { q: "可以直接向保險或 CDCP 收費嗎？", a: "付款安排會在預約時確認。請準備保險或 CDCP 資料，Kathy 會說明適用選項。" },
-      { q: "流動牙科衛生服務安全衛生嗎？", a: "安全。服務遵守專業感染預防和控制程序，包括使用合適防護裝備及妥善處理器具。" },
-      { q: "哪些人適合到府服務？", a: "到府服務適合忙碌成人、長者、照顧者、行動或交通不便人士，以及偏好熟悉環境的客戶。" },
-      { q: "如果需要牙醫治療怎麼辦？", a: "如 Kathy 發現需要牙醫評估或治療的情況，她會清楚解釋並建議合適轉介或下一步。" },
-      { q: "服務哪些地區？", a: "服務範圍視地點和行程安排而定。預約時提供郵區編號，Kathy 會確認您家是否在目前服務範圍內。" },
+      { q: "到家牙齿护理包括什么？", a: "Kathy 会先了解你的健康情况和顾虑，查看口腔健康状况，再提供适合的预防护理。服务可能包括洁牙、抛光、氟化护理和个性化日常护理建议。" },
+      { q: "家里需要准备什么？", a: "通常准备一小块整洁空间、舒适的护理位置、充足光线和一个电源插座就够了。Kathy 到访前会和你确认。" },
+      { q: "一次服务需要多长时间？", a: "时间会根据你的口腔状况和是否第一次服务而不同。确认预约时，Kathy 会告诉你大概需要多久。" },
+      { q: "接受加拿大牙科保健计划和私人保险吗？", a: "接受。我们提供加拿大牙科保健计划（CDCP）涵盖的合资格服务，也接受大多数主流私人牙科保险。具体保障、共付金额和次数限制以你的计划为准。" },
+      { q: "付款和报销怎么处理？", a: "预约时会说明适合你的付款和报销方式。请准备好 CDCP 或私人保险信息，Kathy 会帮你了解下一步。" },
+      { q: "可以做牙齿美白吗？", a: "可以。Kathy 提供专业牙齿美白，并会先了解你的口腔状况、理想效果和敏感情况，再推荐适合的选择。" },
+      { q: "到家服务安全卫生吗？", a: "安全。服务会遵循专业的感染预防和控制流程，包括使用合适的防护用品和经过规范处理的器械。" },
+      { q: "哪些人适合到家服务？", a: "到家服务很适合忙碌的上班族、长者、照顾者、行动或交通不便的人，也适合更喜欢熟悉环境的你。" },
+      { q: "如果需要牙医治疗怎么办？", a: "如果 Kathy 发现需要牙医进一步检查或治疗的情况，她会清楚说明，并建议合适的转介或下一步。" },
+      { q: "服务哪些地区？", a: "服务范围会根据地点和当天路线安排而不同。预约时提供邮政编码，Kathy 会帮你确认是否在当前服务范围内。" },
     ],
     contact: {
-      eyebrow: "聯絡我們",
-      title: "讓下次護理變得更簡單。",
-      intro: "提出問題、查詢服務範圍，或請我們協助選擇合適預約。",
-      formTitle: "傳送一般查詢",
-      name: "姓名", email: "電郵", phone: "電話（選填）", postal: "郵區編號", message: "Kathy 可以如何協助您？",
-      namePh: "您的姓名", emailPh: "you@example.com", phonePh: "(000) 000-0000", postalPh: "A1A 1A1",
-      messagePh: "請保持內容一般，勿提供私人醫療資料。",
-      send: "傳送查詢",
-      privacy: "請勿提供醫療卡號碼或私人醫療資料。",
-      demo: "查詢流程已準備就緒。推出網站前，請連接 Kathy 選用的收件箱。",
-      visitTitle: "到府預約", visitBody: "每次到訪前均會確認服務範圍及時間。",
-      replyTitle: "細心回覆", replyBody: "一般查詢會在護理日程容許下盡快回覆。",
-      urgentTitle: "牙科緊急情況？", urgentBody: "流動牙科衛生並非緊急服務。如有劇痛、腫脹、創傷或出血不止，請聯絡牙醫或緊急醫療服務。",
+      eyebrow: "联系 Kathy",
+      title: "让下一次护理轻松一点。",
+      intro: "想问问题、确认服务范围，或不知道该选哪项服务，都可以给我们留言。",
+      formTitle: "发个简单消息",
+      name: "姓名", email: "邮箱", phone: "电话（选填）", postal: "邮政编码", message: "Kathy 可以怎么帮你？",
+      namePh: "你的姓名", emailPh: "you@example.com", phonePh: "(000) 000-0000", postalPh: "A1A 1A1",
+      messagePh: "简单说说你的问题就好，请不要填写私人医疗信息。",
+      send: "发送留言",
+      privacy: "请不要填写健康卡号码或私人医疗信息。",
+      demo: "留言流程已经准备好。网站正式上线前，需要连接 Kathy 的收件邮箱。",
+      visitTitle: "到家预约", visitBody: "每次到访前都会确认服务范围和时间。",
+      replyTitle: "认真回复", replyBody: "Kathy 会在护理安排允许的情况下尽快回复一般问题。",
+      urgentTitle: "牙齿紧急情况？", urgentBody: "到家洁牙不是紧急服务。如果出现剧烈疼痛、肿胀、外伤或无法止血，请尽快联系牙医或紧急医疗服务。",
     },
     footer: {
-      line: "在舒適家中享受專業牙科衛生護理。",
-      legal: "Kathy Liu (DBA) • 獨立流動牙科衛生服務",
-      note: "CDCP 資格和保障視客戶及服務而定。",
+      line: "专业洁牙和美白，舒舒服服在家完成。",
+      legal: "HomeSmile 到家牙齿护理 • Kathy Liu 提供服务",
+      note: "CDCP 和私人保险的具体保障以个人计划和服务项目为准。",
     },
   },
 } as const;
@@ -327,7 +337,7 @@ const copy = {
 function Logo({ compact = false }: { compact?: boolean }) {
   return (
     <span className="logo-wrap" aria-hidden="true">
-      <span className="logo-mark">K</span>
+      <span className="logo-mark">H</span>
       {!compact && <span className="logo-spark">+</span>}
     </span>
   );
@@ -342,7 +352,7 @@ export function Site({ page }: { page: SitePage }) {
     const selected = new URLSearchParams(window.location.search).get("lang");
     const next: Lang = selected === "zh" ? "zh" : "en";
     setLang(next);
-    document.documentElement.lang = next === "zh" ? "zh-Hant" : "en";
+    document.documentElement.lang = next === "zh" ? "zh-Hans" : "en";
   }, []);
 
   const t = copy[lang];
@@ -352,7 +362,7 @@ export function Site({ page }: { page: SitePage }) {
     const url = new URL(window.location.href);
     url.searchParams.set("lang", next);
     window.history.replaceState({}, "", url);
-    document.documentElement.lang = next === "zh" ? "zh-Hant" : "en";
+    document.documentElement.lang = next === "zh" ? "zh-Hans" : "en";
     setMenuOpen(false);
   };
 
@@ -425,9 +435,9 @@ export function Site({ page }: { page: SitePage }) {
                   <a className="text-link" href="#how-it-works">{t.learn} <span>↓</span></a>
                 </div>
                 <div className="micro-trust">
-                  <span><i>✓</i> 10+ {lang === "en" ? "years" : "年經驗"}</span>
+                  <span><i>✓</i> {lang === "en" ? "Private insurance" : "私人保险"}</span>
                   <span><i>✓</i> CDCP</span>
-                  <span><i>✓</i> {lang === "en" ? "At home" : "到府服務"}</span>
+                  <span><i>✓</i> {lang === "en" ? "At home" : "到家服务"}</span>
                 </div>
               </div>
               <div className="hero-visual">
@@ -446,7 +456,7 @@ export function Site({ page }: { page: SitePage }) {
 
             <section className="trust-section section-pad">
               <div className="section-heading centered narrow">
-                <p className="eyebrow">{lang === "en" ? "Comfort meets care" : "舒適與專業兼備"}</p>
+                <p className="eyebrow">{lang === "en" ? "Comfort meets care" : "舒适和专业，都可以有"}</p>
                 <h2>{t.home.trustTitle}</h2>
                 <p>{t.home.trustIntro}</p>
               </div>
@@ -481,7 +491,7 @@ export function Site({ page }: { page: SitePage }) {
             <section className="comfort-section section-pad">
               <div className="comfort-image">
                 <img src="/images/comfort-care.jpg" alt={t.home.comfortAlt} width="1600" height="1067" loading="lazy" />
-                <div className="image-caption"><span>01</span>{lang === "en" ? "Care in a familiar space" : "熟悉空間內的專業護理"}</div>
+                <div className="image-caption"><span>01</span>{lang === "en" ? "Care in a familiar space" : "在熟悉的家里接受护理"}</div>
               </div>
               <div className="comfort-copy">
                 <p className="eyebrow">{t.home.comfortEyebrow}</p>
@@ -500,11 +510,11 @@ export function Site({ page }: { page: SitePage }) {
                 <h2>{t.home.aboutTitle}</h2>
                 <p>{t.home.aboutBody}</p>
                 <blockquote>“{t.home.aboutQuote}”</blockquote>
-                <div className="signature"><span>Kathy</span><small>Kathy Liu • {lang === "en" ? "Mobile dental hygienist" : "流動牙科衛生師"}</small></div>
+                <div className="signature"><span>Kathy</span><small>Kathy Liu • {lang === "en" ? "Mobile dental hygienist" : "到家牙科保健师"}</small></div>
               </div>
               <div className="about-image-wrap">
                 <img src="/images/dental-care.jpg" alt={t.home.aboutAlt} width="1600" height="1067" loading="lazy" />
-                <div className="experience-seal"><strong>10+</strong><span>{lang === "en" ? "YEARS OF CARE" : "年專業護理"}</span></div>
+                <div className="experience-seal"><strong>CDCP</strong><span>{lang === "en" ? "+ PRIVATE INSURANCE" : "和私人保险"}</span></div>
               </div>
             </section>
 
@@ -542,7 +552,7 @@ export function Site({ page }: { page: SitePage }) {
 
             <section className="final-cta section-pad">
               <div className="final-art" aria-hidden="true"><span className="orbit orbit-one" /><span className="orbit orbit-two" /><span className="final-plus">+</span></div>
-              <div className="final-copy"><p className="eyebrow">{lang === "en" ? "Care comes to you" : "專業護理來到您家"}</p><h2>{t.home.finalTitle}</h2><p>{t.home.finalBody}</p></div>
+              <div className="final-copy"><p className="eyebrow">{lang === "en" ? "Care comes to you" : "专业护理来到你家"}</p><h2>{t.home.finalTitle}</h2><p>{t.home.finalBody}</p></div>
               <a className="button button-coral" href={href("/booking")}>{t.book} <span>→</span></a>
             </section>
           </>
@@ -552,7 +562,7 @@ export function Site({ page }: { page: SitePage }) {
           <>
             <section className="page-hero section-pad booking-hero">
               <div><p className="eyebrow">{t.booking.eyebrow}</p><h1>{t.booking.title}</h1><p>{t.booking.intro}</p></div>
-              <div className="page-hero-stat"><strong>10+</strong><span>{lang === "en" ? "years making care more comfortable" : "年經驗，讓護理更舒適"}</span></div>
+              <div className="page-hero-stat"><strong>CDCP</strong><span>{lang === "en" ? "Canadian Dental Care Plan + private insurance" : "加拿大牙科保健计划 + 私人保险"}</span></div>
             </section>
             <section className="booking-layout section-pad">
               <div className="calendar-placeholder" id="calendly-placeholder">
@@ -632,7 +642,7 @@ export function Site({ page }: { page: SitePage }) {
           <div className="footer-links">{navItems.map((item) => <a key={item.key} href={href(item.path)}>{item.label}</a>)}</div>
           <a className="button button-coral" href={href("/booking")}>{t.book} <span>→</span></a>
         </div>
-        <div className="footer-bottom"><span>{t.footer.legal}</span><span>{t.footer.note}</span><span>© {new Date().getFullYear()} Kathy Liu</span></div>
+        <div className="footer-bottom"><span>{t.footer.legal}</span><span>{t.footer.note}</span><span>© {new Date().getFullYear()} HomeSmile</span></div>
       </footer>
       {page !== "booking" && <a className="mobile-book-bar" href={href("/booking")}>{t.book} <span>→</span></a>}
     </div>
