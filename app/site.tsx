@@ -4,6 +4,18 @@ import { FormEvent, useEffect, useState } from "react";
 
 export type SitePage = "home" | "booking" | "faq" | "contact";
 type Lang = "en" | "zh";
+type FormStatus = "idle" | "sending" | "sent" | "error";
+
+declare global {
+  interface Window {
+    Calendly?: {
+      initInlineWidget: (options: { url: string; parentElement: HTMLElement }) => void;
+    };
+  }
+}
+
+const calendlyUrl = "https://calendly.com/kathy-liu007/30min";
+const formSubmitUrl = "https://formsubmit.co/ajax/kathy.liu007@gmail.com";
 
 const copy = {
   en: {
@@ -113,11 +125,10 @@ const copy = {
       title: "Your next cleaning or whitening visit can come to you.",
       intro:
         "Choose a time that works for you. Kathy will confirm your location, care needs, and Canadian Dental Care Plan (CDCP) or private insurance details before the visit.",
-      placeholderTitle: "Online booking is almost ready",
-      placeholderBody:
-        "Your Calendly scheduling widget will live here. Once connected, clients can choose an available at-home appointment in a few taps.",
-      placeholderLabel: "Calendly booking area",
-      placeholderNote: "Scheduling integration placeholder",
+      placeholderTitle: "Choose a time with Kathy",
+      placeholderBody: "Use the calendar to select an available at-home appointment.",
+      placeholderLabel: "Online booking",
+      placeholderNote: "Secure scheduling powered by Calendly",
       checklistTitle: "Before you book",
       checklist: [
         "Have your address or postal code ready so the service area can be confirmed.",
@@ -199,9 +210,10 @@ const copy = {
       postalPh: "A1A 1A1",
       messagePh: "Please keep this message general and do not include private medical information.",
       send: "Send inquiry",
-      privacy: "Please do not include health card numbers or private medical information.",
-      demo:
-        "This inquiry flow is ready. Connect the form to Kathy’s preferred inbox before launch.",
+      sending: "Sending…",
+      sent: "Thanks—your message has been sent to Kathy.",
+      error: "We couldn’t send your message. Please try again or email Kathy directly at kathy.liu007@gmail.com.",
+      privacy: "Your message is emailed to Kathy. Please do not include health card numbers or private medical information.",
       visitTitle: "Service area",
       visitBody: "Toronto, Richmond Hill, Markham, Vaughan, and Mississauga.",
       replyTitle: "Thoughtful replies",
@@ -279,10 +291,10 @@ const copy = {
       eyebrow: "预约到家服务",
       title: "在家也能轻松洁牙、美白。",
       intro: "选一个适合你的时间。到访前，Kathy 会确认地址、护理需求，以及加拿大牙科保健计划（CDCP）或私人保险信息。",
-      placeholderTitle: "在线预约马上就好",
-      placeholderBody: "Calendly 预约工具会放在这里。连接后，几下点击就能选好到家服务时间。",
-      placeholderLabel: "Calendly 预约区域",
-      placeholderNote: "预约系统预留位置",
+      placeholderTitle: "选择预约时间",
+      placeholderBody: "请在日历中选择方便的到家服务时间。",
+      placeholderLabel: "在线预约",
+      placeholderNote: "由 Calendly 提供安全预约服务",
       checklistTitle: "预约前准备一下",
       checklist: ["准备好地址或邮政编码，方便确认服务范围。", "提前告诉我们行动、无障碍或舒适方面的需求。", "如果使用 CDCP 或私人保险，请准备好计划信息，方便确认保障。"],
       cdcpTitle: "加拿大牙科保健计划和私人保险",
@@ -320,8 +332,10 @@ const copy = {
       namePh: "你的姓名", emailPh: "you@example.com", phonePh: "(000) 000-0000", postalPh: "A1A 1A1",
       messagePh: "简单说说你的问题就好，请不要填写私人医疗信息。",
       send: "发送留言",
-      privacy: "请不要填写健康卡号码或私人医疗信息。",
-      demo: "留言流程已经准备好。网站正式上线前，需要连接 Kathy 的收件邮箱。",
+      sending: "正在发送…",
+      sent: "谢谢！你的留言已经发送给 Kathy。",
+      error: "发送失败，请稍后再试，或直接发邮件到 kathy.liu007@gmail.com。",
+      privacy: "留言会发送到 Kathy 的邮箱。请不要填写健康卡号码或私人医疗信息。",
       visitTitle: "服务地区", visitBody: "多伦多、列治文山、万锦、旺市和密西沙加。",
       replyTitle: "回复时间", replyBody: "收到消息后，我们会尽快回复你。",
       urgentTitle: "牙齿紧急情况？", urgentBody: "到家洁牙不是紧急服务。如果出现剧烈疼痛、肿胀、外伤或无法止血，请尽快联系牙医或紧急医疗服务。",
@@ -346,7 +360,7 @@ function Logo({ compact = false }: { compact?: boolean }) {
 export function Site({ page }: { page: SitePage }) {
   const [lang, setLang] = useState<Lang>("en");
   const [menuOpen, setMenuOpen] = useState(false);
-  const [formReady, setFormReady] = useState(false);
+  const [formStatus, setFormStatus] = useState<FormStatus>("idle");
 
   useEffect(() => {
     const selected = new URLSearchParams(window.location.search).get("lang");
@@ -354,6 +368,35 @@ export function Site({ page }: { page: SitePage }) {
     setLang(next);
     document.documentElement.lang = next === "zh" ? "zh-Hans" : "en";
   }, []);
+
+  useEffect(() => {
+    if (page !== "booking") return;
+
+    const widget = document.getElementById("calendly-widget");
+    if (!widget) return;
+
+    const initialize = () => {
+      if (!widget.querySelector("iframe") && window.Calendly) {
+        window.Calendly.initInlineWidget({ url: calendlyUrl, parentElement: widget });
+      }
+    };
+
+    const existingScript = document.getElementById("calendly-widget-script") as HTMLScriptElement | null;
+    if (existingScript) {
+      initialize();
+      existingScript.addEventListener("load", initialize, { once: true });
+      return () => existingScript.removeEventListener("load", initialize);
+    }
+
+    const script = document.createElement("script");
+    script.id = "calendly-widget-script";
+    script.src = "https://assets.calendly.com/assets/external/widget.js";
+    script.async = true;
+    script.addEventListener("load", initialize, { once: true });
+    document.body.appendChild(script);
+
+    return () => script.removeEventListener("load", initialize);
+  }, [page]);
 
   const t = copy[lang];
   const href = (path: string) => `${path}?lang=${lang}`;
@@ -373,9 +416,34 @@ export function Site({ page }: { page: SitePage }) {
     { key: "contact", label: t.nav.contact, path: "/contact" },
   ];
 
-  const submitContact = (event: FormEvent<HTMLFormElement>) => {
+  const submitContact = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setFormReady(true);
+    const form = event.currentTarget;
+    const fields = Object.fromEntries(new FormData(form).entries());
+    setFormStatus("sending");
+
+    try {
+      const response = await fetch(formSubmitUrl, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...fields,
+          _subject: "New HomeSmile website inquiry",
+          _template: "table",
+          _url: window.location.href,
+        }),
+      });
+      const result = await response.json() as { success?: boolean };
+      if (!response.ok || result.success === false) throw new Error("Unable to send inquiry");
+
+      form.reset();
+      setFormStatus("sent");
+    } catch {
+      setFormStatus("error");
+    }
   };
 
   return (
@@ -567,12 +635,12 @@ export function Site({ page }: { page: SitePage }) {
             <section className="booking-layout section-pad">
               <div className="calendar-placeholder" id="calendly-placeholder">
                 <div className="calendar-top"><span className="calendar-dot" /><strong>{t.booking.placeholderLabel}</strong><small>{t.booking.placeholderNote}</small></div>
-                <div className="calendar-body">
-                  <div className="calendar-icon" aria-hidden="true"><span>⌑</span></div>
-                  <h2>{t.booking.placeholderTitle}</h2>
-                  <p>{t.booking.placeholderBody}</p>
-                  <div className="time-slot-preview" aria-hidden="true"><span>9:00</span><span>11:30</span><span>2:00</span></div>
-                </div>
+                <div
+                  className="calendly-inline-widget"
+                  id="calendly-widget"
+                  data-url={calendlyUrl}
+                  aria-label={t.booking.placeholderTitle}
+                />
               </div>
               <aside className="booking-aside">
                 <div className="info-card"><span className="card-label">01</span><h2>{t.booking.checklistTitle}</h2><ul className="check-list compact">{t.booking.checklist.map((item) => <li key={item}><span>✓</span>{item}</li>)}</ul></div>
@@ -618,13 +686,21 @@ export function Site({ page }: { page: SitePage }) {
               <form className="contact-form" onSubmit={submitContact}>
                 <div className="form-heading"><span>01</span><h2>{t.contact.formTitle}</h2></div>
                 <div className="form-grid">
+                  <input className="form-honeypot" name="_honey" tabIndex={-1} autoComplete="off" aria-hidden="true" />
                   <label><span>{t.contact.name}</span><input required name="name" placeholder={t.contact.namePh} autoComplete="name" /></label>
                   <label><span>{t.contact.email}</span><input required name="email" type="email" placeholder={t.contact.emailPh} autoComplete="email" /></label>
                   <label><span>{t.contact.phone}</span><input name="phone" type="tel" placeholder={t.contact.phonePh} autoComplete="tel" /></label>
                   <label><span>{t.contact.postal}</span><input required name="postal" placeholder={t.contact.postalPh} autoComplete="postal-code" /></label>
                   <label className="full-field"><span>{t.contact.message}</span><textarea required name="message" rows={5} placeholder={t.contact.messagePh} /></label>
                 </div>
-                <div className="form-footer"><div><button className="button" type="submit">{t.contact.send} <span>→</span></button><small>{t.contact.privacy}</small></div>{formReady && <p className="form-ready" role="status">{t.contact.demo}</p>}</div>
+                <div className="form-footer">
+                  <div><button className="button" type="submit" disabled={formStatus === "sending"}>{formStatus === "sending" ? t.contact.sending : t.contact.send} <span>→</span></button><small>{t.contact.privacy}</small></div>
+                  {formStatus !== "idle" && formStatus !== "sending" && (
+                    <p className={`form-ready ${formStatus === "error" ? "form-error" : ""}`} role={formStatus === "error" ? "alert" : "status"}>
+                      {formStatus === "sent" ? t.contact.sent : t.contact.error}
+                    </p>
+                  )}
+                </div>
               </form>
               <aside className="contact-info">
                 <article><span>01</span><h3>{t.contact.visitTitle}</h3><p>{t.contact.visitBody}</p></article>
