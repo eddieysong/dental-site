@@ -1065,17 +1065,19 @@ details > p {
   width: 12px;
 }
 
-.calendly-inline-widget {
+.tidycal-embed {
   height: 700px !important;
   max-height: 700px !important;
   min-height: 700px !important;
-  min-width: 320px;
-  overflow: hidden !important;
+  min-width: 0;
+  overflow: auto !important;
   position: relative;
   width: 100%;
+  -webkit-overflow-scrolling: touch;
 }
 
-.calendly-inline-widget iframe {
+.tidycal-embed iframe {
+  border: 0;
   height: 700px !important;
   max-height: 700px !important;
   min-height: 700px !important;
