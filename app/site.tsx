@@ -6,15 +6,7 @@ export type SitePage = "home" | "booking" | "faq" | "contact";
 type Lang = "en" | "zh";
 type FormStatus = "idle" | "sending" | "sent";
 
-declare global {
-  interface Window {
-    Calendly?: {
-      initInlineWidget: (options: { url: string; parentElement: HTMLElement }) => void;
-    };
-  }
-}
-
-const calendlyUrl = "https://calendly.com/kathy-liu007/30min";
+const tidyCalPath = "kathyliu007/home-dental-cleaning-and-whitening-session";
 const formSubmitUrl = "https://formsubmit.co/kathy.liu007@gmail.com";
 
 const copy = {
@@ -128,7 +120,7 @@ const copy = {
       placeholderTitle: "Choose a time with Kathy",
       placeholderBody: "Use the calendar to select an available at-home appointment.",
       placeholderLabel: "Online booking",
-      placeholderNote: "Secure scheduling powered by Calendly",
+      placeholderNote: "Secure scheduling powered by TidyCal",
       checklistTitle: "Before you book",
       checklist: [
         "Have your address or postal code ready so the service area can be confirmed.",
@@ -293,7 +285,7 @@ const copy = {
       placeholderTitle: "选择预约时间",
       placeholderBody: "请在日历中选择方便的到家服务时间。",
       placeholderLabel: "在线预约",
-      placeholderNote: "由 Calendly 提供安全预约服务",
+      placeholderNote: "使用 TidyCal 在线预约",
       checklistTitle: "预约前准备一下",
       checklist: ["准备好地址或邮政编码，方便确认服务范围。", "提前告诉我们行动、无障碍或舒适方面的需求。", "如果使用 CDCP 或私人保险，请准备好计划信息，方便确认保障。"],
       cdcpTitle: "加拿大牙科保健计划和私人保险",
@@ -372,30 +364,13 @@ export function Site({ page }: { page: SitePage }) {
   useEffect(() => {
     if (page !== "booking") return;
 
-    const widget = document.getElementById("calendly-widget");
-    if (!widget) return;
-
-    const initialize = () => {
-      if (!widget.querySelector("iframe") && window.Calendly) {
-        window.Calendly.initInlineWidget({ url: calendlyUrl, parentElement: widget });
-      }
-    };
-
-    const existingScript = document.getElementById("calendly-widget-script") as HTMLScriptElement | null;
-    if (existingScript) {
-      initialize();
-      existingScript.addEventListener("load", initialize, { once: true });
-      return () => existingScript.removeEventListener("load", initialize);
-    }
+    if (document.getElementById("tidycal-widget-script")) return;
 
     const script = document.createElement("script");
-    script.id = "calendly-widget-script";
-    script.src = "https://assets.calendly.com/assets/external/widget.js";
+    script.id = "tidycal-widget-script";
+    script.src = "https://asset-tidycal.b-cdn.net/js/embed.js";
     script.async = true;
-    script.addEventListener("load", initialize, { once: true });
     document.body.appendChild(script);
-
-    return () => script.removeEventListener("load", initialize);
   }, [page]);
 
   const t = copy[lang];
@@ -612,12 +587,11 @@ export function Site({ page }: { page: SitePage }) {
               <div className="page-hero-stat"><strong>CDCP</strong><span>{lang === "en" ? "Canadian Dental Care Plan + private insurance" : "加拿大牙科保健计划 + 私人保险"}</span></div>
             </section>
             <section className="booking-layout section-pad">
-              <div className="calendar-placeholder" id="calendly-placeholder">
+              <div className="calendar-placeholder" id="tidycal-placeholder">
                 <div className="calendar-top"><span className="calendar-dot" /><strong>{t.booking.placeholderLabel}</strong><small>{t.booking.placeholderNote}</small></div>
                 <div
-                  className="calendly-inline-widget"
-                  id="calendly-widget"
-                  data-url={calendlyUrl}
+                  className="tidycal-embed"
+                  data-path={tidyCalPath}
                   aria-label={t.booking.placeholderTitle}
                 />
               </div>
