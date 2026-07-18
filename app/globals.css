@@ -1027,61 +1027,310 @@ details > p {
   padding-top: 5rem;
 }
 
-.calendar-placeholder {
+.request-form {
   background: var(--paper);
   border: 1px solid var(--line);
   border-radius: 24px;
   box-shadow: var(--shadow);
-  height: 770px;
-  max-height: 770px;
-  min-height: 770px;
   overflow: hidden;
+  padding: 1.2rem;
 }
 
-.calendar-top {
+.request-form-top {
   align-items: center;
   border-bottom: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  padding: 0.2rem 0 1.2rem;
+}
+
+.request-form-top > div {
   display: grid;
-  gap: 0.65rem;
-  grid-template-columns: auto 1fr;
-  padding: 1rem 1.2rem;
+  gap: 0.25rem;
 }
 
-.calendar-top strong {
-  font-size: 0.8rem;
+.request-form-top strong {
+  font-size: 1rem;
 }
 
-.calendar-top small {
+.request-form-top > span {
+  color: var(--coral-dark);
+  font-size: 1rem;
+  font-weight: 850;
+}
+
+.request-kicker {
   color: var(--muted);
-  font-size: 0.62rem;
-  grid-column: 2;
+  font-size: 0.65rem;
+  font-weight: 750;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
-.calendar-dot {
-  background: var(--coral);
-  border-radius: 50%;
-  grid-row: 1 / 3;
-  height: 12px;
-  width: 12px;
+.request-progress {
+  display: grid;
+  gap: 0.35rem;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 1.1rem 0 2rem;
 }
 
-.tidycal-embed {
-  height: 700px !important;
-  max-height: 700px !important;
-  min-height: 700px !important;
-  min-width: 0;
-  overflow: auto !important;
-  position: relative;
-  width: 100%;
-  -webkit-overflow-scrolling: touch;
-}
-
-.tidycal-embed iframe {
+.request-progress button {
+  align-items: center;
+  background: transparent;
   border: 0;
-  height: 700px !important;
-  max-height: 700px !important;
-  min-height: 700px !important;
-  width: 100% !important;
+  color: var(--muted);
+  display: grid;
+  gap: 0.4rem;
+  justify-items: center;
+  padding: 0;
+}
+
+.request-progress button::before {
+  background: var(--line);
+  content: "";
+  height: 4px;
+  width: 100%;
+}
+
+.request-progress button.active::before,
+.request-progress button.complete::before {
+  background: var(--teal);
+}
+
+.request-progress button > span {
+  align-items: center;
+  background: var(--cream);
+  border-radius: 50%;
+  display: flex;
+  font-size: 0.68rem;
+  font-weight: 850;
+  height: 28px;
+  justify-content: center;
+  width: 28px;
+}
+
+.request-progress button.active > span,
+.request-progress button.complete > span {
+  background: var(--mint);
+  color: var(--teal);
+}
+
+.request-progress small {
+  font-size: 0.56rem;
+  font-weight: 750;
+}
+
+.request-step {
+  display: grid;
+  gap: 2.4rem;
+}
+
+.request-step fieldset {
+  border: 0;
+  margin: 0;
+  min-width: 0;
+  padding: 0;
+}
+
+.request-step legend {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(1.7rem, 5vw, 2.25rem);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  padding: 0;
+}
+
+.field-hint {
+  color: var(--muted);
+  font-size: 0.82rem;
+  margin: 0.65rem 0 1rem;
+}
+
+.choice-grid {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.choice-card {
+  align-items: center;
+  background: var(--cream);
+  border: 1px solid var(--line);
+  border-radius: 15px;
+  cursor: pointer;
+  display: flex;
+  gap: 0.8rem;
+  min-height: 68px;
+  padding: 0.8rem;
+  position: relative;
+  transition: border-color 160ms ease, background 160ms ease, transform 160ms ease;
+}
+
+.choice-card:hover {
+  border-color: rgba(23, 122, 120, 0.48);
+  transform: translateY(-1px);
+}
+
+.choice-card:has(input:checked) {
+  background: var(--mint);
+  border-color: var(--teal);
+  box-shadow: inset 0 0 0 1px var(--teal);
+}
+
+.choice-card:has(input:focus-visible) {
+  outline: 3px solid rgba(23, 122, 120, 0.24);
+  outline-offset: 2px;
+}
+
+.choice-card input {
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  width: 1px;
+}
+
+.choice-check {
+  align-items: center;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--teal);
+  display: flex;
+  flex: 0 0 auto;
+  font-size: 0.64rem;
+  font-weight: 850;
+  height: 32px;
+  justify-content: center;
+  width: 32px;
+}
+
+.choice-card:has(input:checked) .choice-check {
+  background: var(--teal);
+  color: #fff;
+}
+
+.choice-card strong {
+  font-size: 0.82rem;
+}
+
+.service-choice {
+  align-items: flex-start;
+  min-height: 125px;
+  padding: 1rem;
+}
+
+.service-choice > span:nth-of-type(2) {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.service-choice small {
+  color: var(--muted);
+  font-size: 0.72rem;
+  line-height: 1.45;
+}
+
+.service-choice em {
+  background: var(--coral);
+  border-radius: 999px;
+  color: var(--ink-deep);
+  font-size: 0.58rem;
+  font-style: normal;
+  font-weight: 850;
+  padding: 0.3rem 0.55rem;
+  position: absolute;
+  right: 0.7rem;
+  top: 0.7rem;
+}
+
+.request-fields {
+  display: grid;
+  gap: 1rem;
+}
+
+.request-fields label {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.request-fields label > span {
+  font-size: 0.72rem;
+  font-weight: 750;
+}
+
+.request-fields select {
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, var(--teal) 50%), linear-gradient(135deg, var(--teal) 50%, transparent 50%);
+  background-position: calc(100% - 19px) 21px, calc(100% - 14px) 21px;
+  background-repeat: no-repeat;
+  background-size: 5px 5px, 5px 5px;
+}
+
+.request-actions {
+  align-items: stretch;
+  border-top: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 2.2rem;
+  padding-top: 1.3rem;
+}
+
+.request-actions .button {
+  justify-content: center;
+}
+
+.request-actions small {
+  color: var(--muted);
+  font-size: 0.66rem;
+  line-height: 1.5;
+}
+
+.button-ghost {
+  background: transparent;
+  border-color: var(--line);
+  color: var(--teal);
+}
+
+.request-ready {
+  align-items: flex-start;
+  background: var(--mint);
+  border-radius: 14px;
+  display: flex;
+  gap: 0.8rem;
+  margin-top: 1rem;
+  padding: 1rem;
+}
+
+.request-ready > span {
+  align-items: center;
+  background: var(--teal);
+  border-radius: 50%;
+  color: white;
+  display: flex;
+  flex: 0 0 auto;
+  font-size: 0.7rem;
+  height: 28px;
+  justify-content: center;
+  width: 28px;
+}
+
+.request-ready strong,
+.request-ready p {
+  display: block;
+}
+
+.request-ready p {
+  color: var(--muted);
+  font-size: 0.75rem;
+  margin: 0.35rem 0;
+}
+
+.request-ready a {
+  color: var(--teal);
+  font-size: 0.74rem;
+  font-weight: 800;
 }
 
 .booking-aside {
@@ -1119,6 +1368,16 @@ details > p {
 
 .cdcp-card {
   background: var(--sun);
+}
+
+.whitening-card {
+  background: var(--mint);
+}
+
+.whitening-card p {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-bottom: 0;
 }
 
 .cdcp-card p {
@@ -1301,11 +1560,13 @@ details > p {
 }
 
 input,
+select,
 textarea {
   background: var(--cream);
   border: 1px solid var(--line);
   border-radius: 10px;
   color: var(--ink);
+  font: inherit;
   padding: 0.85rem 0.95rem;
   width: 100%;
 }
@@ -1314,7 +1575,8 @@ textarea {
   display: none;
 }
 
-input {
+input,
+select {
   min-height: 50px;
 }
 
@@ -1495,6 +1757,29 @@ textarea::placeholder {
 
   .form-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .request-form {
+    padding: 1.8rem;
+  }
+
+  .compact-choices,
+  .two-columns {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .contact-choices {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .request-actions {
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .request-actions small {
+    flex-basis: 100%;
   }
 
   .full-field {
@@ -1718,6 +2003,14 @@ textarea::placeholder {
     align-items: start;
     gap: 2rem;
     grid-template-columns: minmax(0, 1.5fr) minmax(310px, 0.7fr);
+  }
+
+  .request-form {
+    padding: 2.2rem;
+  }
+
+  .service-choices {
+    grid-template-columns: repeat(3, 1fr);
   }
 
   .info-card {
