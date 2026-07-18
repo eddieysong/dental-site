@@ -5,34 +5,47 @@ import { FormEvent, useEffect, useState } from "react";
 export type SitePage = "home" | "booking" | "faq" | "contact";
 type Lang = "en" | "zh";
 type FormStatus = "idle" | "sending" | "sent";
+type AppointmentRequest = {
+  careFor: string;
+  service: string;
+  city: string;
+  postal: string;
+  availability: string;
+  insurance: string;
+  name: string;
+  email: string;
+  phone: string;
+  contactMethod: string;
+  notes: string;
+};
 
-const tidyCalPath = "kathyliu007/home-dental-cleaning-and-whitening-session";
 const formSubmitUrl = "https://formsubmit.co/kathy.liu007@gmail.com";
+const requestEmail = "kathy.liu007@gmail.com";
 
 const copy = {
   en: {
     language: "Language",
-    notice: "Canadian Dental Care Plan (CDCP) + major private insurance accepted",
+    notice: "Stay home for your cleaning or whitening • CDCP + major private insurance accepted",
     brand: "HomeSmile",
     brandLine: "Mobile Dental Hygiene · Kathy Liu",
-    nav: { home: "Home", booking: "Book", faq: "FAQ", contact: "Contact" },
+    nav: { home: "Home", booking: "Request a visit", faq: "FAQ", contact: "Contact" },
     menu: "Menu",
     close: "Close",
-    book: "Book an at-home visit",
+    book: "Request an at-home visit",
     learn: "See how it works",
     home: {
-      eyebrow: "Professional mobile dental hygiene",
-      title: "A fresh, healthy smile—without leaving home.",
+      eyebrow: "Professional dental hygiene at home",
+      title: "Stay home. We’ll bring the care to you.",
       intro:
-        "Kathy brings gentle, professional dental hygiene care to you. No commute, no waiting room, and no rushing your day.",
+        "For seniors, parents with young kids, busy professionals, caregivers, and anyone who would simply rather not make the trip. Kathy brings gentle dental hygiene care right to your home.",
       imageAlt: "A person smiling with clean, healthy teeth",
       floatingOne: "Insurance",
       floatingOneSub: "major plans welcome",
       floatingTwo: "Your home",
       floatingTwoSub: "your comfort",
-      trustTitle: "Dental hygiene that fits your life",
+      trustTitle: "Made for people who would rather stay home",
       trustIntro:
-        "A calm, convenient option for busy adults, seniors, caregivers, and anyone who feels more comfortable at home.",
+        "No arranging a ride, packing up the kids, fighting traffic, finding parking, or waiting around a clinic.",
       pillars: [
         {
           number: "INSURANCE",
@@ -46,14 +59,14 @@ const copy = {
         },
         {
           number: "HOME",
-          title: "Stay where you’re comfortable",
-          body: "Kathy arrives with the professional equipment needed for your visit.",
+          title: "Your home, your comfort",
+          body: "Kathy arrives with the professional equipment needed—ideal for seniors, families, caregivers, and packed schedules.",
         },
       ],
       serviceEyebrow: "What to expect",
-      serviceTitle: "Cleanings, preventive care, and whitening—brought to you",
+      serviceTitle: "A professional cleaning and a brighter smile—in one visit",
       serviceIntro:
-        "Every visit begins with a conversation about your health, comfort, and goals.",
+        "Choose cleaning, whitening, or combine both while Kathy is already at your home.",
       services: [
         {
           title: "Assessment & cleaning",
@@ -69,17 +82,17 @@ const copy = {
         },
         {
           title: "Teeth whitening",
-          body: "Professional whitening options designed around your smile goals, comfort, and oral health.",
+          body: "Add professional whitening to the same visit as your cleaning, or request whitening on its own.",
         },
       ],
       comfortEyebrow: "Care on your terms",
-      comfortTitle: "Your space. Your schedule. Your peace of mind.",
+      comfortTitle: "No commute. No waiting room. No need to rearrange your whole day.",
       comfortBody:
-        "At-home care removes the travel, parking, and waiting room from your appointment. Kathy sets up a clean, comfortable treatment area and gives you her full attention.",
+        "At-home care is especially helpful for older adults, parents with children at home, busy professionals, caregivers, and anyone who feels most comfortable in a familiar space.",
       comfortList: [
         "No commute or clinic waiting room",
         "A familiar setting for a calmer visit",
-        "Convenient for caregivers and families",
+        "Convenient for seniors, parents, caregivers, and professionals",
         "Professional infection prevention protocols",
       ],
       comfortAlt: "A patient receiving gentle dental care",
@@ -93,16 +106,16 @@ const copy = {
       stepsTitle: "How an at-home visit works",
       steps: [
         {
-          title: "Choose a time",
-          body: "Request an appointment and share your location and accessibility needs.",
+          title: "Tell Kathy what you need",
+          body: "Complete a short request with your service, location, preferences, and contact details.",
         },
         {
-          title: "Kathy comes to you",
-          body: "A small, well-lit area and access to an electrical outlet are usually all that’s needed.",
+          title: "Kathy confirms the details",
+          body: "She reviews travel time and care needs, then contacts you personally to agree on an appointment.",
         },
         {
-          title: "Relax and smile",
-          body: "Finish your cleaning or whitening visit, then carry on with your day—already at home.",
+          title: "Stay home and smile",
+          body: "Complete your cleaning, whitening, or both in one visit—then carry on with your day.",
         },
       ],
       faqEyebrow: "Good to know",
@@ -113,19 +126,53 @@ const copy = {
       finalBody: "Request a visit with Kathy and make your next cleaning or whitening appointment the easiest one yet.",
     },
     booking: {
-      eyebrow: "Book your visit",
-      title: "Your next cleaning or whitening visit can come to you.",
+      eyebrow: "Request an at-home visit",
+      title: "Tell us what you need. Kathy will take care of the scheduling.",
       intro:
-        "Choose a time that works for you. Kathy will confirm your location, care needs, and Canadian Dental Care Plan (CDCP) or private insurance details before the visit.",
-      placeholderTitle: "Choose a time with Kathy",
-      placeholderBody: "Use the calendar to select an available at-home appointment.",
-      placeholderLabel: "Online booking",
-      placeholderNote: "Secure scheduling powered by TidyCal",
-      checklistTitle: "Before you book",
+        "There is no public calendar to race through. Send a short appointment request and Kathy will review your location, care needs, and preferred timing before contacting you personally.",
+      progress: "Request progress",
+      steps: ["Your visit", "Home & timing", "Contact details"],
+      stepOf: "Step",
+      of: "of",
+      careForTitle: "Who is this visit for?",
+      careForHint: "Choose the option that fits best.",
+      careForOptions: ["Myself", "A senior family member", "My child or family", "Someone I care for"],
+      serviceTitle: "What would you like Kathy to provide?",
+      serviceHint: "Cleaning and whitening can be completed during the same visit.",
+      serviceOptions: [
+        { value: "At-home dental cleaning", title: "Dental cleaning", body: "Assessment, scaling and preventive hygiene care at home." },
+        { value: "Professional teeth whitening", title: "Teeth whitening", body: "Professional whitening tailored to comfort and smile goals." },
+        { value: "Cleaning and whitening in the same visit", title: "Cleaning + whitening", body: "The convenient option: complete both during one home visit.", badge: "Popular" },
+      ],
+      locationTitle: "Where should Kathy come?",
+      city: "City",
+      cityPlaceholder: "Select your city",
+      cities: ["Toronto", "Richmond Hill", "Markham", "Vaughan", "Mississauga"],
+      postal: "Postal code",
+      timingTitle: "What timing usually works best?",
+      timingOptions: ["Weekday mornings", "Weekday afternoons", "Weekday evenings", "Weekends", "I’m flexible"],
+      insuranceTitle: "Will you be using coverage?",
+      insuranceOptions: ["Canadian Dental Care Plan (CDCP)", "Private dental insurance", "No coverage", "Not sure yet"],
+      contactTitle: "How can Kathy reach you?",
+      name: "Name",
+      email: "Email",
+      phone: "Phone",
+      contactMethod: "Preferred reply",
+      contactOptions: ["Email", "Text message", "Phone call"],
+      notes: "Anything Kathy should know? (optional)",
+      notesPlaceholder: "Accessibility needs, stairs, parking, another person requesting care, or a general question. Please do not include private medical information.",
+      next: "Continue",
+      back: "Back",
+      submit: "Prepare request for Kathy",
+      emailNote: "Your email app will open with the completed request. Review it and tap Send so Kathy receives it.",
+      preparedTitle: "Your request is ready",
+      preparedBody: "If your email app did not open, email Kathy directly and mention that you completed the website questionnaire.",
+      emailKathy: "Email Kathy",
+      checklistTitle: "What happens next",
       checklist: [
-        "Have your address or postal code ready so the service area can be confirmed.",
-        "Share any mobility, accessibility, or comfort needs in advance.",
-        "If using the Canadian Dental Care Plan (CDCP) or private insurance, keep your plan information nearby for coverage confirmation.",
+        "Kathy reviews your service choice, address, and preferred timing.",
+        "She contacts you personally to confirm a suitable appointment.",
+        "Your appointment is not confirmed until you and Kathy agree on the details.",
       ],
       cdcpTitle: "Canadian Dental Care Plan & private insurance",
       cdcpBody:
@@ -166,7 +213,7 @@ const copy = {
       },
       {
         q: "Do you offer teeth whitening?",
-        a: "Yes. Kathy offers professional teeth whitening and will review your oral health, goals, and sensitivity before recommending an option.",
+        a: "Yes. Kathy offers professional teeth whitening on its own or during the same home visit as your cleaning. She will review your oral health, goals, and sensitivity before recommending an option.",
       },
       {
         q: "Is mobile dental hygiene safe and sanitary?",
@@ -221,43 +268,43 @@ const copy = {
   },
   zh: {
     language: "语言",
-    notice: "支持加拿大牙科保健计划（CDCP）和多数私人保险 • 舒舒服服在家洁牙",
+    notice: "不用出门，在家就能洁牙或美白 • 支持 CDCP 和多数私人保险",
     brand: "HomeSmile",
     brandLine: "Kathy Liu 到家牙齿护理",
-    nav: { home: "首页", booking: "预约", faq: "常见问题", contact: "联系" },
+    nav: { home: "首页", booking: "提交预约需求", faq: "常见问题", contact: "联系" },
     menu: "菜单",
     close: "关闭",
-    book: "预约到家服务",
+    book: "提交到家服务需求",
     learn: "看看服务流程",
     home: {
-      eyebrow: "专业到家牙齿护理",
-      title: "不用出门，也能拥有清爽健康的笑容。",
-      intro: "Kathy 把专业、温柔的牙齿护理带到你家。省下开车、停车和候诊的时间，安心坐在家里就好。",
+      eyebrow: "专业牙齿护理直接到家",
+      title: "安心留在家，专业护理来找你。",
+      intro: "特别适合长者、家里有小朋友的父母、忙碌的上班族、照顾者，以及单纯不想为了洁牙跑一趟诊所的你。Kathy 会把专业、温柔的护理带到你家。",
       imageAlt: "开心展示洁净健康笑容的人",
       floatingOne: "私人保险",
       floatingOneSub: "多数主流计划都接受",
       floatingTwo: "就在家里",
       floatingTwoSub: "轻松又自在",
-      trustTitle: "牙齿护理，也可以很轻松",
-      trustIntro: "适合忙碌的上班族、长者、照顾者，也适合更喜欢在熟悉环境里接受护理的你。",
+      trustTitle: "不想出门，也能好好护理牙齿",
+      trustIntro: "不用安排接送，不用带着孩子奔波，也不用堵车、找停车位或坐在候诊室里等。",
       pillars: [
         { number: "保险", title: "支持私人保险", body: "接受大多数主流私人牙科保险计划，预约前会帮你确认相关信息。" },
         { number: "CDCP", title: "加拿大牙科保健计划", body: "提供加拿大牙科保健计划（CDCP）涵盖的合资格服务，治疗前会先确认保障。" },
-        { number: "到家", title: "留在熟悉的家里", body: "Kathy 会带上服务需要的专业设备，直接到你家。" },
+        { number: "到家", title: "留在熟悉的家里", body: "Kathy 会带上专业设备直接到家，特别方便长者、家庭、照顾者和时间紧张的上班族。" },
       ],
       serviceEyebrow: "可以做什么",
-      serviceTitle: "从洁牙到美白，专业护理送到家",
-      serviceIntro: "每次服务都会先聊聊你的口腔状况、舒适需求和想要改善的地方。",
+      serviceTitle: "同一次到家服务，洁牙和美白可以一起完成",
+      serviceIntro: "可以只做洁牙、只做美白，也可以趁 Kathy 已经到家，一次完成两项护理。",
       services: [
         { title: "口腔检查和洁牙", body: "仔细查看口腔健康状况，再专业清除牙菌斑和牙结石。" },
         { title: "抛光和氟化护理", body: "根据你的需要，提供牙齿抛光和氟化护理建议。" },
         { title: "日常护理建议", body: "给你简单、实用的刷牙和牙缝清洁建议，让每天护理更容易。" },
-        { title: "牙齿美白", body: "根据你的牙齿状况、敏感度和理想效果，提供专业美白选择。" },
+        { title: "牙齿美白", body: "可以和洁牙安排在同一次到家服务，也可以单独预约专业美白。" },
       ],
       comfortEyebrow: "按你的节奏来",
-      comfortTitle: "熟悉的空间，合适的时间，更安心的护理。",
-      comfortBody: "到家服务省下交通、停车和候诊时间。Kathy 会布置干净舒适的护理区域，把注意力都放在你身上。",
-      comfortList: ["不用开车，也不用在诊所等候", "熟悉的环境，整个人更放松", "方便长者、照顾者和全家安排", "遵循专业感染预防和消毒流程"],
+      comfortTitle: "不用赶路，不用候诊，也不用为了看牙打乱整天安排。",
+      comfortBody: "到家护理特别适合长者、家里有孩子的父母、工作忙碌的人、照顾者，以及在熟悉环境里更安心的你。",
+      comfortList: ["不用开车，也不用在诊所等候", "熟悉的环境，整个人更放松", "方便长者、父母、照顾者和上班族", "遵循专业感染预防和消毒流程"],
       comfortAlt: "在舒适环境中接受温和牙齿护理的客户",
       aboutEyebrow: "认识 Kathy",
       aboutTitle: "温柔、细心，不赶时间",
@@ -267,9 +314,9 @@ const copy = {
       stepsEyebrow: "从预约到结束都很简单",
       stepsTitle: "到家服务怎么进行",
       steps: [
-        { title: "选一个方便的时间", body: "提交预约，再告诉我们你的地址和无障碍或舒适需求。" },
-        { title: "Kathy 到你家", body: "通常准备一小块光线好的空间和一个电源插座就可以了。" },
-        { title: "轻松完成护理", body: "洁牙或美白结束后，你已经在家，可以直接继续当天的安排。" },
+        { title: "告诉 Kathy 你的需求", body: "填写简单问卷，选择服务，并留下地址、时间偏好和联系方式。" },
+        { title: "Kathy 和你确认安排", body: "她会先查看路程和护理需求，再亲自联系你，一起确定合适的时间。" },
+        { title: "留在家里轻松完成", body: "洁牙、美白，或者两项一起做；结束后不用赶路，直接继续当天的安排。" },
       ],
       faqEyebrow: "预约前可以先看看",
       faqTitle: "第一次到家服务，有问题很正常。",
@@ -279,15 +326,49 @@ const copy = {
       finalBody: "预约 Kathy 的到家服务，让下一次洁牙或美白更省心。",
     },
     booking: {
-      eyebrow: "预约到家服务",
-      title: "在家也能轻松洁牙、美白。",
-      intro: "选一个适合你的时间。到访前，Kathy 会确认地址、护理需求，以及加拿大牙科保健计划（CDCP）或私人保险信息。",
-      placeholderTitle: "选择预约时间",
-      placeholderBody: "请在日历中选择方便的到家服务时间。",
-      placeholderLabel: "在线预约",
-      placeholderNote: "使用 TidyCal 在线预约",
-      checklistTitle: "预约前准备一下",
-      checklist: ["准备好地址或邮政编码，方便确认服务范围。", "提前告诉我们行动、无障碍或舒适方面的需求。", "如果使用 CDCP 或私人保险，请准备好计划信息，方便确认保障。"],
+      eyebrow: "提交到家服务需求",
+      title: "先告诉 Kathy 你的需求，时间由她亲自和你确认。",
+      intro: "这里不开放自助抢时间。填好几项简单信息后，Kathy 会先查看地址、护理需求和时间偏好，再亲自联系你确认安排。",
+      progress: "填写进度",
+      steps: ["服务需求", "地址和时间", "联系方式"],
+      stepOf: "第",
+      of: "步，共 3 步",
+      careForTitle: "这次想为谁预约？",
+      careForHint: "选择最符合的情况就可以。",
+      careForOptions: ["我自己", "家中长者", "孩子或家人", "我照顾的其他人"],
+      serviceTitle: "希望 Kathy 提供哪项服务？",
+      serviceHint: "洁牙和美白可以安排在同一次到家服务。",
+      serviceOptions: [
+        { value: "到家洁牙", title: "到家洁牙", body: "在家完成口腔检查、洁牙和预防护理。" },
+        { value: "专业牙齿美白", title: "专业牙齿美白", body: "根据牙齿状况、敏感度和理想效果安排美白。" },
+        { value: "同一次完成洁牙和美白", title: "洁牙 + 美白", body: "最省事的选择：Kathy 到家一次，两项护理一起完成。", badge: "推荐" },
+      ],
+      locationTitle: "Kathy 需要去哪里？",
+      city: "城市",
+      cityPlaceholder: "请选择城市",
+      cities: ["多伦多", "列治文山", "万锦", "旺市", "密西沙加"],
+      postal: "邮政编码",
+      timingTitle: "通常什么时间比较方便？",
+      timingOptions: ["工作日上午", "工作日下午", "工作日晚上", "周末", "时间比较灵活"],
+      insuranceTitle: "这次会使用保险吗？",
+      insuranceOptions: ["加拿大牙科保健计划（CDCP）", "私人牙科保险", "没有保险", "还不确定"],
+      contactTitle: "Kathy 怎么联系你？",
+      name: "姓名",
+      email: "邮箱",
+      phone: "电话",
+      contactMethod: "希望如何回复",
+      contactOptions: ["邮箱", "短信", "电话"],
+      notes: "还有什么想告诉 Kathy？（选填）",
+      notesPlaceholder: "例如行动或无障碍需求、楼梯、停车、家里还有其他人想一起护理，或者其他一般问题。请不要填写私人医疗信息。",
+      next: "继续",
+      back: "返回",
+      submit: "整理好需求，发给 Kathy",
+      emailNote: "点击后会打开你的邮件 App，并自动填好内容。确认无误后点发送，Kathy 才会收到。",
+      preparedTitle: "预约需求已经整理好了",
+      preparedBody: "如果邮件 App 没有自动打开，可以直接发邮件给 Kathy，并说明你已经填写了网站问卷。",
+      emailKathy: "给 Kathy 发邮件",
+      checklistTitle: "提交后会怎样",
+      checklist: ["Kathy 会查看服务选择、地址和时间偏好。", "她会亲自联系你，一起确认合适的到家时间。", "只有你和 Kathy 确认好细节后，预约才算正式确定。"],
       cdcpTitle: "加拿大牙科保健计划和私人保险",
       cdcpBody: "我们提供加拿大牙科保健计划（CDCP）涵盖的合资格服务，也接受大多数主流私人牙科保险。具体保障、共付金额和次数限制以你的计划为准，治疗前会先确认。请不要通过普通留言发送私人健康信息。",
       supportTitle: "不确定该预约哪项服务？",
@@ -308,7 +389,7 @@ const copy = {
       { q: "一次服务需要多长时间？", a: "时间会根据你的口腔状况和是否第一次服务而不同。确认预约时，Kathy 会告诉你大概需要多久。" },
       { q: "接受加拿大牙科保健计划和私人保险吗？", a: "接受。我们提供加拿大牙科保健计划（CDCP）涵盖的合资格服务，也接受大多数主流私人牙科保险。具体保障、共付金额和次数限制以你的计划为准。" },
       { q: "付款和报销怎么处理？", a: "预约时会说明适合你的付款和报销方式。请准备好 CDCP 或私人保险信息，Kathy 会帮你了解下一步。" },
-      { q: "可以做牙齿美白吗？", a: "可以。Kathy 提供专业牙齿美白，并会先了解你的口腔状况、理想效果和敏感情况，再推荐适合的选择。" },
+      { q: "可以做牙齿美白吗？", a: "可以。专业美白可以单独安排，也可以和洁牙放在同一次到家服务。Kathy 会先了解你的口腔状况、理想效果和敏感情况，再推荐适合的选择。" },
       { q: "到家服务安全卫生吗？", a: "安全。服务会遵循专业的感染预防和控制流程，包括使用合适的防护用品和经过规范处理的器械。" },
       { q: "哪些人适合到家服务？", a: "到家服务很适合忙碌的上班族、长者、照顾者、行动或交通不便的人，也适合更喜欢熟悉环境的你。" },
       { q: "如果需要牙医治疗怎么办？", a: "如果 Kathy 发现需要牙医进一步检查或治疗的情况，她会清楚说明，并建议合适的转介或下一步。" },
@@ -351,6 +432,21 @@ export function Site({ page }: { page: SitePage }) {
   const [lang, setLang] = useState<Lang>("en");
   const [menuOpen, setMenuOpen] = useState(false);
   const [formStatus, setFormStatus] = useState<FormStatus>("idle");
+  const [requestStep, setRequestStep] = useState(1);
+  const [requestPrepared, setRequestPrepared] = useState(false);
+  const [appointment, setAppointment] = useState<AppointmentRequest>({
+    careFor: "",
+    service: "",
+    city: "",
+    postal: "",
+    availability: "",
+    insurance: "",
+    name: "",
+    email: "",
+    phone: "",
+    contactMethod: "",
+    notes: "",
+  });
 
   useEffect(() => {
     const selected = new URLSearchParams(window.location.search).get("lang");
@@ -360,18 +456,6 @@ export function Site({ page }: { page: SitePage }) {
     if (sent === "1") setFormStatus("sent");
     document.documentElement.lang = next === "zh" ? "zh-Hans" : "en";
   }, []);
-
-  useEffect(() => {
-    if (page !== "booking") return;
-
-    if (document.getElementById("tidycal-widget-script")) return;
-
-    const script = document.createElement("script");
-    script.id = "tidycal-widget-script";
-    script.src = "https://asset-tidycal.b-cdn.net/js/embed.js";
-    script.async = true;
-    document.body.appendChild(script);
-  }, [page]);
 
   const t = copy[lang];
   const href = (path: string) => `${path}?lang=${lang}`;
@@ -398,6 +482,79 @@ export function Site({ page }: { page: SitePage }) {
     nextInput.value = `${window.location.origin}/contact?lang=${lang}&sent=1`;
     urlInput.value = window.location.href;
     setFormStatus("sending");
+  };
+
+  const updateAppointment = (field: keyof AppointmentRequest, value: string) => {
+    setAppointment((current) => ({ ...current, [field]: value }));
+    setRequestPrepared(false);
+  };
+
+  const continueRequest = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!event.currentTarget.reportValidity()) return;
+    setRequestStep((step) => Math.min(3, step + 1));
+    document.getElementById("appointment-request")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  const prepareAppointmentRequest = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!event.currentTarget.reportValidity()) return;
+
+    const labels = lang === "en"
+      ? {
+          subject: "HomeSmile at-home appointment request",
+          language: "Language",
+          careFor: "Visit for",
+          service: "Requested service",
+          city: "City",
+          postal: "Postal code",
+          availability: "Preferred timing",
+          insurance: "Coverage",
+          name: "Name",
+          email: "Email",
+          phone: "Phone",
+          contact: "Preferred reply",
+          notes: "Additional notes",
+          empty: "None provided",
+        }
+      : {
+          subject: "HomeSmile 到家服务预约需求",
+          language: "语言",
+          careFor: "护理对象",
+          service: "希望的服务",
+          city: "城市",
+          postal: "邮政编码",
+          availability: "方便的时间",
+          insurance: "保险",
+          name: "姓名",
+          email: "邮箱",
+          phone: "电话",
+          contact: "希望如何回复",
+          notes: "补充说明",
+          empty: "没有填写",
+        };
+
+    const body = [
+      labels.subject,
+      "",
+      `${labels.language}: ${lang === "en" ? "English" : "简体中文"}`,
+      `${labels.careFor}: ${appointment.careFor}`,
+      `${labels.service}: ${appointment.service}`,
+      `${labels.city}: ${appointment.city}`,
+      `${labels.postal}: ${appointment.postal}`,
+      `${labels.availability}: ${appointment.availability}`,
+      `${labels.insurance}: ${appointment.insurance}`,
+      "",
+      `${labels.name}: ${appointment.name}`,
+      `${labels.email}: ${appointment.email}`,
+      `${labels.phone}: ${appointment.phone}`,
+      `${labels.contact}: ${appointment.contactMethod}`,
+      "",
+      `${labels.notes}: ${appointment.notes || labels.empty}`,
+    ].join("\n");
+
+    setRequestPrepared(true);
+    window.location.href = `mailto:${requestEmail}?subject=${encodeURIComponent(`${labels.subject} — ${appointment.name}`)}&body=${encodeURIComponent(body)}`;
   };
 
   return (
@@ -457,9 +614,10 @@ export function Site({ page }: { page: SitePage }) {
                   <a className="text-link" href="#how-it-works">{t.learn} <span>↓</span></a>
                 </div>
                 <div className="micro-trust">
-                  <span><i>✓</i> {lang === "en" ? "Private insurance" : "私人保险"}</span>
-                  <span><i>✓</i> CDCP</span>
-                  <span><i>✓</i> {lang === "en" ? "At home" : "到家服务"}</span>
+                  <span><i>✓</i> {lang === "en" ? "Seniors" : "长者"}</span>
+                  <span><i>✓</i> {lang === "en" ? "Parents & families" : "父母和家庭"}</span>
+                  <span><i>✓</i> {lang === "en" ? "Busy professionals" : "忙碌上班族"}</span>
+                  <span><i>✓</i> {lang === "en" ? "Anyone who prefers home" : "喜欢留在家里的人"}</span>
                 </div>
               </div>
               <div className="hero-visual">
@@ -584,19 +742,139 @@ export function Site({ page }: { page: SitePage }) {
           <>
             <section className="page-hero section-pad booking-hero">
               <div><p className="eyebrow">{t.booking.eyebrow}</p><h1>{t.booking.title}</h1><p>{t.booking.intro}</p></div>
-              <div className="page-hero-stat"><strong>CDCP</strong><span>{lang === "en" ? "Canadian Dental Care Plan + private insurance" : "加拿大牙科保健计划 + 私人保险"}</span></div>
+              <div className="page-hero-stat"><strong>1:1</strong><span>{lang === "en" ? "Kathy personally confirms every visit" : "每次预约都由 Kathy 亲自确认"}</span></div>
             </section>
-            <section className="booking-layout section-pad">
-              <div className="calendar-placeholder" id="tidycal-placeholder">
-                <div className="calendar-top"><span className="calendar-dot" /><strong>{t.booking.placeholderLabel}</strong><small>{t.booking.placeholderNote}</small></div>
-                <div
-                  className="tidycal-embed"
-                  data-path={tidyCalPath}
-                  aria-label={t.booking.placeholderTitle}
-                />
-              </div>
+            <section className="booking-layout section-pad" id="appointment-request">
+              <form className="request-form" onSubmit={requestStep < 3 ? continueRequest : prepareAppointmentRequest}>
+                <div className="request-form-top">
+                  <div>
+                    <span className="request-kicker">{lang === "en" ? `${t.booking.stepOf} ${requestStep} ${t.booking.of} 3` : `${t.booking.stepOf} ${requestStep} ${t.booking.of}`}</span>
+                    <strong>{t.booking.steps[requestStep - 1]}</strong>
+                  </div>
+                  <span>{Math.round((requestStep / 3) * 100)}%</span>
+                </div>
+                <div className="request-progress" aria-label={t.booking.progress}>
+                  {t.booking.steps.map((step, index) => (
+                    <button
+                      type="button"
+                      key={step}
+                      className={index + 1 === requestStep ? "active" : index + 1 < requestStep ? "complete" : ""}
+                      onClick={() => index + 1 < requestStep && setRequestStep(index + 1)}
+                      aria-current={index + 1 === requestStep ? "step" : undefined}
+                    >
+                      <span>{index + 1 < requestStep ? "✓" : index + 1}</span>
+                      <small>{step}</small>
+                    </button>
+                  ))}
+                </div>
+
+                {requestStep === 1 && (
+                  <div className="request-step">
+                    <fieldset>
+                      <legend>{t.booking.careForTitle}</legend>
+                      <p className="field-hint">{t.booking.careForHint}</p>
+                      <div className="choice-grid compact-choices">
+                        {t.booking.careForOptions.map((option, index) => (
+                          <label className="choice-card" key={option}>
+                            <input required type="radio" name="careFor" value={option} checked={appointment.careFor === option} onChange={(event) => updateAppointment("careFor", event.target.value)} />
+                            <span className="choice-check">{String.fromCharCode(65 + index)}</span>
+                            <strong>{option}</strong>
+                          </label>
+                        ))}
+                      </div>
+                    </fieldset>
+                    <fieldset>
+                      <legend>{t.booking.serviceTitle}</legend>
+                      <p className="field-hint">{t.booking.serviceHint}</p>
+                      <div className="choice-grid service-choices">
+                        {t.booking.serviceOptions.map((option, index) => (
+                          <label className="choice-card service-choice" key={option.value}>
+                            <input required type="radio" name="service" value={option.value} checked={appointment.service === option.value} onChange={(event) => updateAppointment("service", event.target.value)} />
+                            <span className="choice-check">0{index + 1}</span>
+                            <span><strong>{option.title}</strong><small>{option.body}</small></span>
+                            {"badge" in option && <em>{option.badge}</em>}
+                          </label>
+                        ))}
+                      </div>
+                    </fieldset>
+                  </div>
+                )}
+
+                {requestStep === 2 && (
+                  <div className="request-step">
+                    <fieldset>
+                      <legend>{t.booking.locationTitle}</legend>
+                      <div className="request-fields two-columns">
+                        <label><span>{t.booking.city}</span><select required value={appointment.city} onChange={(event) => updateAppointment("city", event.target.value)}><option value="">{t.booking.cityPlaceholder}</option>{t.booking.cities.map((city) => <option key={city} value={city}>{city}</option>)}</select></label>
+                        <label><span>{t.booking.postal}</span><input required value={appointment.postal} onChange={(event) => updateAppointment("postal", event.target.value)} placeholder="A1A 1A1" autoComplete="postal-code" /></label>
+                      </div>
+                    </fieldset>
+                    <fieldset>
+                      <legend>{t.booking.timingTitle}</legend>
+                      <div className="choice-grid compact-choices">
+                        {t.booking.timingOptions.map((option, index) => (
+                          <label className="choice-card" key={option}>
+                            <input required type="radio" name="availability" value={option} checked={appointment.availability === option} onChange={(event) => updateAppointment("availability", event.target.value)} />
+                            <span className="choice-check">{index + 1}</span><strong>{option}</strong>
+                          </label>
+                        ))}
+                      </div>
+                    </fieldset>
+                    <fieldset>
+                      <legend>{t.booking.insuranceTitle}</legend>
+                      <div className="choice-grid compact-choices">
+                        {t.booking.insuranceOptions.map((option, index) => (
+                          <label className="choice-card" key={option}>
+                            <input required type="radio" name="insurance" value={option} checked={appointment.insurance === option} onChange={(event) => updateAppointment("insurance", event.target.value)} />
+                            <span className="choice-check">{String.fromCharCode(65 + index)}</span><strong>{option}</strong>
+                          </label>
+                        ))}
+                      </div>
+                    </fieldset>
+                  </div>
+                )}
+
+                {requestStep === 3 && (
+                  <div className="request-step">
+                    <fieldset>
+                      <legend>{t.booking.contactTitle}</legend>
+                      <div className="request-fields two-columns">
+                        <label><span>{t.booking.name}</span><input required value={appointment.name} onChange={(event) => updateAppointment("name", event.target.value)} autoComplete="name" /></label>
+                        <label><span>{t.booking.email}</span><input required type="email" value={appointment.email} onChange={(event) => updateAppointment("email", event.target.value)} autoComplete="email" /></label>
+                        <label><span>{t.booking.phone}</span><input required type="tel" value={appointment.phone} onChange={(event) => updateAppointment("phone", event.target.value)} autoComplete="tel" /></label>
+                      </div>
+                    </fieldset>
+                    <fieldset>
+                      <legend>{t.booking.contactMethod}</legend>
+                      <div className="choice-grid compact-choices contact-choices">
+                        {t.booking.contactOptions.map((option, index) => (
+                          <label className="choice-card" key={option}>
+                            <input required type="radio" name="contactMethod" value={option} checked={appointment.contactMethod === option} onChange={(event) => updateAppointment("contactMethod", event.target.value)} />
+                            <span className="choice-check">{index + 1}</span><strong>{option}</strong>
+                          </label>
+                        ))}
+                      </div>
+                    </fieldset>
+                    <div className="request-fields">
+                      <label><span>{t.booking.notes}</span><textarea rows={5} value={appointment.notes} onChange={(event) => updateAppointment("notes", event.target.value)} placeholder={t.booking.notesPlaceholder} /></label>
+                    </div>
+                  </div>
+                )}
+
+                <div className="request-actions">
+                  {requestStep > 1 && <button type="button" className="button button-ghost" onClick={() => setRequestStep((step) => Math.max(1, step - 1))}>← {t.booking.back}</button>}
+                  <button type="submit" className="button">{requestStep < 3 ? t.booking.next : t.booking.submit} <span>→</span></button>
+                  {requestStep === 3 && <small>{t.booking.emailNote}</small>}
+                </div>
+                {requestPrepared && (
+                  <div className="request-ready" role="status">
+                    <span>✓</span><div><strong>{t.booking.preparedTitle}</strong><p>{t.booking.preparedBody}</p><a href={`mailto:${requestEmail}`}>{t.booking.emailKathy} →</a></div>
+                  </div>
+                )}
+              </form>
               <aside className="booking-aside">
                 <div className="info-card"><span className="card-label">01</span><h2>{t.booking.checklistTitle}</h2><ul className="check-list compact">{t.booking.checklist.map((item) => <li key={item}><span>✓</span>{item}</li>)}</ul></div>
+                <div className="info-card whitening-card"><span className="card-label">02</span><h2>{lang === "en" ? "Make one home visit do more" : "一次到家，两项护理"}</h2><p>{lang === "en" ? "Kathy can provide professional teeth whitening during the same visit as your cleaning. Choose “Cleaning + whitening” in the questionnaire." : "洁牙和专业美白可以安排在同一次到家服务。填写问卷时选择“洁牙 + 美白”即可。"}</p></div>
                 <div className="info-card cdcp-card"><span className="card-label">CDCP</span><h2>{t.booking.cdcpTitle}</h2><p>{t.booking.cdcpBody}</p></div>
               </aside>
             </section>
