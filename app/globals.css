@@ -1245,8 +1245,14 @@ details > p {
 
 .service-choice {
   align-items: flex-start;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
   min-height: 125px;
   padding: 1rem;
+}
+
+.service-choice > .choice-check {
+  grid-row: 1 / span 2;
 }
 
 .service-choice > span:nth-of-type(2) {
@@ -1261,6 +1267,7 @@ details > p {
 }
 
 .service-choice em {
+  align-self: start;
   background: var(--coral);
   border-radius: 999px;
   color: var(--ink-deep);
@@ -1268,12 +1275,12 @@ details > p {
   font-style: normal;
   font-weight: 850;
   line-height: 1.2;
-  max-width: 118px;
+  grid-column: 2;
+  justify-self: start;
+  max-width: none;
   padding: 0.3rem 0.55rem;
-  position: absolute;
-  right: 0.7rem;
+  position: static;
   text-align: center;
-  top: 0.7rem;
 }
 
 .request-fields {
