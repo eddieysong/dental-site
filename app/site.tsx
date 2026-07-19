@@ -27,7 +27,7 @@ const copy = {
   en: {
     language: "Language",
     promoLabel: "First visit offer",
-    notice: "Save 20% when you combine cleaning + teeth whitening",
+    notice: "Save 20% on teeth whitening when you add it to a cleaning",
     promoCta: "Claim offer",
     brand: "HomeSmile",
     brandLine: "Mobile Dental Hygiene · Kathy Liu",
@@ -137,7 +137,7 @@ const copy = {
       serviceOptions: [
         { value: "At-home dental cleaning", title: "Dental cleaning", body: "Assessment, scaling and preventive hygiene care at home." },
         { value: "Professional teeth whitening", title: "Teeth whitening", body: "Professional whitening tailored to comfort and smile goals." },
-        { value: "Cleaning and whitening in the same visit", title: "Cleaning + whitening", body: "Complete both during one home visit. First-time customers save 20%.", badge: "20% off first visit" },
+        { value: "Cleaning and whitening in the same visit", title: "Cleaning + whitening", body: "Complete both during one home visit. First-time customers save 20% on the whitening service.", badge: "20% off whitening" },
       ],
       firstVisitTitle: "Is this your first HomeSmile visit?",
       firstVisitOptions: ["Yes, this is my first visit", "No, I’m a returning customer"],
@@ -210,7 +210,7 @@ const copy = {
       },
       {
         q: "Do you offer teeth whitening?",
-        a: "Yes. Kathy offers professional teeth whitening on its own or during the same home visit as your cleaning. First-time HomeSmile customers save 20% when both services are combined in one visit. She will review your oral health, goals, and sensitivity before recommending an option.",
+        a: "Yes. Kathy offers professional teeth whitening on its own or during the same home visit as your cleaning. First-time HomeSmile customers save 20% on the whitening service when it is combined with cleaning in one visit. She will review your oral health, goals, and sensitivity before recommending an option.",
       },
       {
         q: "Is mobile dental hygiene safe and sanitary?",
@@ -266,7 +266,7 @@ const copy = {
   zh: {
     language: "语言",
     promoLabel: "首次到访优惠",
-    notice: "洁牙和美白一起做，立省 20%",
+    notice: "首次到访：洁牙时加做美白，美白项目立减 20%",
     promoCta: "领取优惠",
     brand: "HomeSmile",
     brandLine: "Kathy Liu 到家牙齿护理",
@@ -338,7 +338,7 @@ const copy = {
       serviceOptions: [
         { value: "到家洁牙", title: "到家洁牙", body: "在家完成口腔检查、洁牙和预防护理。" },
         { value: "专业牙齿美白", title: "专业牙齿美白", body: "根据牙齿状况、敏感度和理想效果安排美白。" },
-        { value: "同一次完成洁牙和美白", title: "洁牙 + 美白", body: "Kathy 到家一次，两项护理一起完成。首次到访立减 20%。", badge: "首次立减 20%" },
+        { value: "同一次完成洁牙和美白", title: "洁牙 + 美白", body: "Kathy 到家一次，两项护理一起完成。首次到访，美白项目立减 20%。", badge: "美白立减 20%" },
       ],
       firstVisitTitle: "这是第一次预约 HomeSmile 吗？",
       firstVisitOptions: ["是的，这是第一次", "不是，之前预约过"],
@@ -388,7 +388,7 @@ const copy = {
       { q: "一次服务需要多长时间？", a: "时间会根据你的口腔状况和是否第一次服务而不同。确认预约时，Kathy 会告诉你大概需要多久。" },
       { q: "接受加拿大牙科保健计划和私人保险吗？", a: "接受。我们提供加拿大牙科保健计划（CDCP）涵盖的合资格服务，也接受大多数主流私人牙科保险。具体保障、共付金额和次数限制以你的计划为准。" },
       { q: "付款和报销怎么处理？", a: "预约时会说明适合你的付款和报销方式。请准备好 CDCP 或私人保险信息，Kathy 会帮你了解下一步。" },
-      { q: "可以做牙齿美白吗？", a: "可以。专业美白可以单独安排，也可以和洁牙放在同一次到家服务。首次预约 HomeSmile，把两项服务安排在同一次到家护理，可享 8 折优惠。Kathy 会先了解你的口腔状况、理想效果和敏感情况，再推荐适合的选择。" },
+      { q: "可以做牙齿美白吗？", a: "可以。专业美白可以单独安排，也可以和洁牙放在同一次到家服务。首次预约 HomeSmile，在洁牙时加做美白，美白项目可享 8 折优惠。Kathy 会先了解你的口腔状况、理想效果和敏感情况，再推荐适合的选择。" },
       { q: "到家服务安全卫生吗？", a: "安全。服务会遵循专业的感染预防和控制流程，包括使用合适的防护用品和经过规范处理的器械。" },
       { q: "哪些人适合到家服务？", a: "到家服务很适合忙碌的上班族、长者、照顾者、行动或交通不便的人，也适合更喜欢熟悉环境的你。" },
       { q: "如果需要牙医治疗怎么办？", a: "如果 Kathy 发现需要牙医进一步检查或治疗的情况，她会清楚说明，并建议合适的转介或下一步。" },
@@ -888,7 +888,7 @@ export function Site({ page }: { page: SitePage }) {
               </form>
               <aside className="booking-aside">
                 <div className="info-card"><span className="card-label">01</span><h2>{t.booking.checklistTitle}</h2><ul className="check-list compact">{t.booking.checklist.map((item) => <li key={item}><span>✓</span>{item}</li>)}</ul></div>
-                <div className="info-card whitening-card"><span className="card-label">20% OFF</span><h2>{lang === "en" ? "Combine both and save" : "两项一起做，更省心也更优惠"}</h2><p>{lang === "en" ? "First-time HomeSmile customers save 20% when professional cleaning and teeth whitening are completed during the same home visit." : "首次预约 HomeSmile，在同一次到家服务里完成专业洁牙和牙齿美白，可享 8 折优惠。"}</p></div>
+                <div className="info-card whitening-card"><span className="card-label">{lang === "en" ? "20% OFF WHITENING" : "美白 8 折"}</span><h2>{lang === "en" ? "Combine both and save" : "两项一起做，更省心也更优惠"}</h2><p>{lang === "en" ? "First-time HomeSmile customers save 20% on the teeth-whitening service when cleaning and whitening are completed during the same home visit." : "首次预约 HomeSmile，在同一次到家服务里完成专业洁牙和牙齿美白，美白项目可享 8 折优惠。"}</p></div>
                 <div className="info-card cdcp-card"><span className="card-label">CDCP</span><h2>{t.booking.cdcpTitle}</h2><p>{t.booking.cdcpBody}</p></div>
               </aside>
             </section>
