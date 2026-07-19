@@ -123,24 +123,42 @@ h3 {
 
 .notice-bar {
   align-items: center;
-  background: var(--ink-deep);
-  color: #fff;
+  background: var(--coral);
+  color: var(--ink-deep);
   display: flex;
-  font-size: 0.72rem;
-  font-weight: 700;
-  gap: 0.55rem;
+  flex-wrap: wrap;
+  font-size: 0.7rem;
+  font-weight: 800;
+  gap: 0.45rem 0.7rem;
   justify-content: center;
-  letter-spacing: 0.04em;
-  min-height: 34px;
-  padding: 0.45rem 1rem;
+  min-height: 52px;
+  padding: 0.55rem 0.8rem;
   text-align: center;
 }
 
-.notice-dot {
-  background: var(--coral);
-  border-radius: 50%;
-  height: 7px;
-  width: 7px;
+.promo-bar:hover .promo-message {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.promo-label {
+  background: var(--ink-deep);
+  border-radius: 999px;
+  color: #fff;
+  font-size: 0.56rem;
+  letter-spacing: 0.1em;
+  padding: 0.28rem 0.55rem;
+  text-transform: uppercase;
+}
+
+.promo-message {
+  line-height: 1.25;
+}
+
+.promo-bar > strong {
+  color: var(--ink-deep);
+  font-size: 0.62rem;
+  white-space: nowrap;
 }
 
 .site-header {
@@ -624,26 +642,37 @@ h3 {
 }
 
 .service-card {
-  border-top: 1px solid var(--line);
-  min-height: 255px;
-  padding: 1.4rem 0 2rem;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  min-height: 285px;
+  overflow: hidden;
+  padding: 1.5rem 1.5rem 2.2rem;
   position: relative;
+}
+
+.service-card:nth-child(2) {
+  background: var(--mint);
+}
+
+.service-card h3 {
+  font-size: clamp(1.6rem, 5vw, 2.35rem);
 }
 
 .service-index {
   color: var(--coral-dark);
   display: block;
-  font-size: 1.2rem;
+  font-size: 2rem;
   font-weight: 800;
   letter-spacing: 0.1em;
-  margin-bottom: 3.4rem;
+  margin-bottom: 3rem;
 }
 
 .service-rule {
   background: var(--coral);
   bottom: 0;
   height: 4px;
-  left: 0;
+  left: 1.5rem;
   position: absolute;
   width: 55px;
 }
@@ -1238,9 +1267,12 @@ details > p {
   font-size: 0.58rem;
   font-style: normal;
   font-weight: 850;
+  line-height: 1.2;
+  max-width: 118px;
   padding: 0.3rem 0.55rem;
   position: absolute;
   right: 0.7rem;
+  text-align: center;
   top: 0.7rem;
 }
 
@@ -1844,7 +1876,7 @@ textarea::placeholder {
   }
 
   .service-grid {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .hero {
