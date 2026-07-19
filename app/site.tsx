@@ -8,6 +8,7 @@ type FormStatus = "idle" | "sending" | "sent";
 type AppointmentRequest = {
   careFor: string;
   service: string;
+  firstVisit: string;
   city: string;
   postal: string;
   availability: string;
@@ -25,7 +26,9 @@ const requestEmail = "kathy.liu007@gmail.com";
 const copy = {
   en: {
     language: "Language",
-    notice: "Stay home for your cleaning or whitening • CDCP + major private insurance accepted",
+    promoLabel: "First visit offer",
+    notice: "Save 20% when you combine cleaning + teeth whitening",
+    promoCta: "Claim offer",
     brand: "HomeSmile",
     brandLine: "Mobile Dental Hygiene · Kathy Liu",
     nav: { home: "Home", booking: "Request a visit", faq: "FAQ", contact: "Contact" },
@@ -34,10 +37,10 @@ const copy = {
     book: "Request an at-home visit",
     learn: "See how it works",
     home: {
-      eyebrow: "Professional dental hygiene at home",
+      eyebrow: "At-home dental cleaning & teeth whitening",
       title: "Stay home. We’ll bring the care to you.",
       intro:
-        "For seniors, parents with young kids, busy professionals, caregivers, and anyone who would simply rather not make the trip. Kathy brings gentle dental hygiene care right to your home.",
+        "Kathy’s two main services—professional dental cleaning and teeth whitening—come right to your home. Ideal for seniors, parents with young kids, busy professionals, caregivers, and anyone who would rather not make the trip.",
       imageAlt: "A person smiling with clean, healthy teeth",
       floatingOne: "Insurance",
       floatingOneSub: "major plans welcome",
@@ -63,26 +66,18 @@ const copy = {
           body: "Kathy arrives with the professional equipment needed—ideal for seniors, families, caregivers, and packed schedules.",
         },
       ],
-      serviceEyebrow: "What to expect",
-      serviceTitle: "A professional cleaning and a brighter smile—in one visit",
+      serviceEyebrow: "Our two main services",
+      serviceTitle: "Professional cleaning. Teeth whitening. Or both.",
       serviceIntro:
-        "Choose cleaning, whitening, or combine both while Kathy is already at your home.",
+        "Book either service on its own, or combine both during one convenient home visit.",
       services: [
         {
-          title: "Assessment & cleaning",
-          body: "A careful oral health assessment followed by professional plaque and tartar removal.",
+          title: "At-home dental cleaning",
+          body: "A careful oral health assessment, professional plaque and tartar removal, polishing, and personalized preventive-care guidance.",
         },
         {
-          title: "Polish & fluoride",
-          body: "Polishing and fluoride recommendations tailored to your needs and preferences.",
-        },
-        {
-          title: "Practical home care",
-          body: "Simple, personalized advice to make brushing and interdental care easier every day.",
-        },
-        {
-          title: "Teeth whitening",
-          body: "Add professional whitening to the same visit as your cleaning, or request whitening on its own.",
+          title: "Professional teeth whitening",
+          body: "A brighter smile with professional whitening tailored to your comfort and goals. Add it to your cleaning or request it on its own.",
         },
       ],
       comfortEyebrow: "Care on your terms",
@@ -142,8 +137,10 @@ const copy = {
       serviceOptions: [
         { value: "At-home dental cleaning", title: "Dental cleaning", body: "Assessment, scaling and preventive hygiene care at home." },
         { value: "Professional teeth whitening", title: "Teeth whitening", body: "Professional whitening tailored to comfort and smile goals." },
-        { value: "Cleaning and whitening in the same visit", title: "Cleaning + whitening", body: "The convenient option: complete both during one home visit.", badge: "Popular" },
+        { value: "Cleaning and whitening in the same visit", title: "Cleaning + whitening", body: "Complete both during one home visit. First-time customers save 20%.", badge: "20% off first visit" },
       ],
+      firstVisitTitle: "Is this your first HomeSmile visit?",
+      firstVisitOptions: ["Yes, this is my first visit", "No, I’m a returning customer"],
       locationTitle: "Where should Kathy come?",
       city: "City",
       cityPlaceholder: "Select your city",
@@ -213,7 +210,7 @@ const copy = {
       },
       {
         q: "Do you offer teeth whitening?",
-        a: "Yes. Kathy offers professional teeth whitening on its own or during the same home visit as your cleaning. She will review your oral health, goals, and sensitivity before recommending an option.",
+        a: "Yes. Kathy offers professional teeth whitening on its own or during the same home visit as your cleaning. First-time HomeSmile customers save 20% when both services are combined in one visit. She will review your oral health, goals, and sensitivity before recommending an option.",
       },
       {
         q: "Is mobile dental hygiene safe and sanitary?",
@@ -268,7 +265,9 @@ const copy = {
   },
   zh: {
     language: "语言",
-    notice: "不用出门，在家就能洁牙或美白 • 支持 CDCP 和多数私人保险",
+    promoLabel: "首次到访优惠",
+    notice: "洁牙和美白一起做，立省 20%",
+    promoCta: "领取优惠",
     brand: "HomeSmile",
     brandLine: "Kathy Liu 到家牙齿护理",
     nav: { home: "首页", booking: "提交预约需求", faq: "常见问题", contact: "联系" },
@@ -277,9 +276,9 @@ const copy = {
     book: "提交到家服务需求",
     learn: "看看服务流程",
     home: {
-      eyebrow: "专业牙齿护理直接到家",
+      eyebrow: "专业到家洁牙和牙齿美白",
       title: "安心留在家，专业护理来找你。",
-      intro: "特别适合长者、家里有小朋友的父母、忙碌的上班族、照顾者，以及单纯不想为了洁牙跑一趟诊所的你。Kathy 会把专业、温柔的护理带到你家。",
+      intro: "Kathy 主要提供两项到家服务：专业洁牙和牙齿美白。特别适合长者、家里有小朋友的父母、忙碌的上班族、照顾者，以及单纯不想为了护理牙齿跑一趟诊所的你。",
       imageAlt: "开心展示洁净健康笑容的人",
       floatingOne: "私人保险",
       floatingOneSub: "多数主流计划都接受",
@@ -292,14 +291,12 @@ const copy = {
         { number: "CDCP", title: "加拿大牙科保健计划", body: "提供加拿大牙科保健计划（CDCP）涵盖的合资格服务，治疗前会先确认保障。" },
         { number: "到家", title: "留在熟悉的家里", body: "Kathy 会带上专业设备直接到家，特别方便长者、家庭、照顾者和时间紧张的上班族。" },
       ],
-      serviceEyebrow: "可以做什么",
-      serviceTitle: "同一次到家服务，洁牙和美白可以一起完成",
-      serviceIntro: "可以只做洁牙、只做美白，也可以趁 Kathy 已经到家，一次完成两项护理。",
+      serviceEyebrow: "两项主要服务",
+      serviceTitle: "专业洁牙。牙齿美白。也可以两项一起做。",
+      serviceIntro: "可以单独选择一项，也可以在同一次到家服务里完成洁牙和美白。",
       services: [
-        { title: "口腔检查和洁牙", body: "仔细查看口腔健康状况，再专业清除牙菌斑和牙结石。" },
-        { title: "抛光和氟化护理", body: "根据你的需要，提供牙齿抛光和氟化护理建议。" },
-        { title: "日常护理建议", body: "给你简单、实用的刷牙和牙缝清洁建议，让每天护理更容易。" },
-        { title: "牙齿美白", body: "可以和洁牙安排在同一次到家服务，也可以单独预约专业美白。" },
+        { title: "专业到家洁牙", body: "在家完成口腔健康检查、牙菌斑和牙结石清除、抛光，以及适合你的日常护理建议。" },
+        { title: "专业牙齿美白", body: "根据牙齿状况、敏感度和理想效果安排专业美白，可以和洁牙一起做，也可以单独预约。" },
       ],
       comfortEyebrow: "按你的节奏来",
       comfortTitle: "不用赶路，不用候诊，也不用为了看牙打乱整天安排。",
@@ -341,8 +338,10 @@ const copy = {
       serviceOptions: [
         { value: "到家洁牙", title: "到家洁牙", body: "在家完成口腔检查、洁牙和预防护理。" },
         { value: "专业牙齿美白", title: "专业牙齿美白", body: "根据牙齿状况、敏感度和理想效果安排美白。" },
-        { value: "同一次完成洁牙和美白", title: "洁牙 + 美白", body: "最省事的选择：Kathy 到家一次，两项护理一起完成。", badge: "推荐" },
+        { value: "同一次完成洁牙和美白", title: "洁牙 + 美白", body: "Kathy 到家一次，两项护理一起完成。首次到访立减 20%。", badge: "首次立减 20%" },
       ],
+      firstVisitTitle: "这是第一次预约 HomeSmile 吗？",
+      firstVisitOptions: ["是的，这是第一次", "不是，之前预约过"],
       locationTitle: "Kathy 需要去哪里？",
       city: "城市",
       cityPlaceholder: "请选择城市",
@@ -389,7 +388,7 @@ const copy = {
       { q: "一次服务需要多长时间？", a: "时间会根据你的口腔状况和是否第一次服务而不同。确认预约时，Kathy 会告诉你大概需要多久。" },
       { q: "接受加拿大牙科保健计划和私人保险吗？", a: "接受。我们提供加拿大牙科保健计划（CDCP）涵盖的合资格服务，也接受大多数主流私人牙科保险。具体保障、共付金额和次数限制以你的计划为准。" },
       { q: "付款和报销怎么处理？", a: "预约时会说明适合你的付款和报销方式。请准备好 CDCP 或私人保险信息，Kathy 会帮你了解下一步。" },
-      { q: "可以做牙齿美白吗？", a: "可以。专业美白可以单独安排，也可以和洁牙放在同一次到家服务。Kathy 会先了解你的口腔状况、理想效果和敏感情况，再推荐适合的选择。" },
+      { q: "可以做牙齿美白吗？", a: "可以。专业美白可以单独安排，也可以和洁牙放在同一次到家服务。首次预约 HomeSmile，把两项服务安排在同一次到家护理，可享 8 折优惠。Kathy 会先了解你的口腔状况、理想效果和敏感情况，再推荐适合的选择。" },
       { q: "到家服务安全卫生吗？", a: "安全。服务会遵循专业的感染预防和控制流程，包括使用合适的防护用品和经过规范处理的器械。" },
       { q: "哪些人适合到家服务？", a: "到家服务很适合忙碌的上班族、长者、照顾者、行动或交通不便的人，也适合更喜欢熟悉环境的你。" },
       { q: "如果需要牙医治疗怎么办？", a: "如果 Kathy 发现需要牙医进一步检查或治疗的情况，她会清楚说明，并建议合适的转介或下一步。" },
@@ -437,6 +436,7 @@ export function Site({ page }: { page: SitePage }) {
   const [appointment, setAppointment] = useState<AppointmentRequest>({
     careFor: "",
     service: "",
+    firstVisit: "",
     city: "",
     postal: "",
     availability: "",
@@ -506,6 +506,7 @@ export function Site({ page }: { page: SitePage }) {
           language: "Language",
           careFor: "Visit for",
           service: "Requested service",
+          firstVisit: "First HomeSmile visit",
           city: "City",
           postal: "Postal code",
           availability: "Preferred timing",
@@ -522,6 +523,7 @@ export function Site({ page }: { page: SitePage }) {
           language: "语言",
           careFor: "护理对象",
           service: "希望的服务",
+          firstVisit: "是否首次预约 HomeSmile",
           city: "城市",
           postal: "邮政编码",
           availability: "方便的时间",
@@ -540,6 +542,7 @@ export function Site({ page }: { page: SitePage }) {
       `${labels.language}: ${lang === "en" ? "English" : "简体中文"}`,
       `${labels.careFor}: ${appointment.careFor}`,
       `${labels.service}: ${appointment.service}`,
+      `${labels.firstVisit}: ${appointment.firstVisit}`,
       `${labels.city}: ${appointment.city}`,
       `${labels.postal}: ${appointment.postal}`,
       `${labels.availability}: ${appointment.availability}`,
@@ -560,10 +563,11 @@ export function Site({ page }: { page: SitePage }) {
   return (
     <div className={`site ${lang === "zh" ? "is-zh" : ""}`}>
       <a className="skip-link" href="#main">Skip to content</a>
-      <div className="notice-bar">
-        <span className="notice-dot" />
-        {t.notice}
-      </div>
+      <a className="notice-bar promo-bar" href={href("/booking")}>
+        <span className="promo-label">{t.promoLabel}</span>
+        <span className="promo-message">{t.notice}</span>
+        <strong>{t.promoCta} <span aria-hidden="true">→</span></strong>
+      </a>
       <header className="site-header">
         <a className="brand" href={href("/")} aria-label={`${t.brand} ${t.brandLine}`}>
           <Logo />
@@ -614,10 +618,9 @@ export function Site({ page }: { page: SitePage }) {
                   <a className="text-link" href="#how-it-works">{t.learn} <span>↓</span></a>
                 </div>
                 <div className="micro-trust">
-                  <span><i>✓</i> {lang === "en" ? "Seniors" : "长者"}</span>
-                  <span><i>✓</i> {lang === "en" ? "Parents & families" : "父母和家庭"}</span>
-                  <span><i>✓</i> {lang === "en" ? "Busy professionals" : "忙碌上班族"}</span>
-                  <span><i>✓</i> {lang === "en" ? "Anyone who prefers home" : "喜欢留在家里的人"}</span>
+                  <span><i>01</i> {lang === "en" ? "Professional cleaning" : "专业洁牙"}</span>
+                  <span><i>02</i> {lang === "en" ? "Teeth whitening" : "牙齿美白"}</span>
+                  <span><i>✓</i> {lang === "en" ? "Both in one visit" : "同一次到家完成"}</span>
                 </div>
               </div>
               <div className="hero-visual">
@@ -797,6 +800,17 @@ export function Site({ page }: { page: SitePage }) {
                         ))}
                       </div>
                     </fieldset>
+                    <fieldset>
+                      <legend>{t.booking.firstVisitTitle}</legend>
+                      <div className="choice-grid compact-choices first-visit-choices">
+                        {t.booking.firstVisitOptions.map((option, index) => (
+                          <label className="choice-card" key={option}>
+                            <input required type="radio" name="firstVisit" value={option} checked={appointment.firstVisit === option} onChange={(event) => updateAppointment("firstVisit", event.target.value)} />
+                            <span className="choice-check">{index + 1}</span><strong>{option}</strong>
+                          </label>
+                        ))}
+                      </div>
+                    </fieldset>
                   </div>
                 )}
 
@@ -874,7 +888,7 @@ export function Site({ page }: { page: SitePage }) {
               </form>
               <aside className="booking-aside">
                 <div className="info-card"><span className="card-label">01</span><h2>{t.booking.checklistTitle}</h2><ul className="check-list compact">{t.booking.checklist.map((item) => <li key={item}><span>✓</span>{item}</li>)}</ul></div>
-                <div className="info-card whitening-card"><span className="card-label">02</span><h2>{lang === "en" ? "Make one home visit do more" : "一次到家，两项护理"}</h2><p>{lang === "en" ? "Kathy can provide professional teeth whitening during the same visit as your cleaning. Choose “Cleaning + whitening” in the questionnaire." : "洁牙和专业美白可以安排在同一次到家服务。填写问卷时选择“洁牙 + 美白”即可。"}</p></div>
+                <div className="info-card whitening-card"><span className="card-label">20% OFF</span><h2>{lang === "en" ? "Combine both and save" : "两项一起做，更省心也更优惠"}</h2><p>{lang === "en" ? "First-time HomeSmile customers save 20% when professional cleaning and teeth whitening are completed during the same home visit." : "首次预约 HomeSmile，在同一次到家服务里完成专业洁牙和牙齿美白，可享 8 折优惠。"}</p></div>
                 <div className="info-card cdcp-card"><span className="card-label">CDCP</span><h2>{t.booking.cdcpTitle}</h2><p>{t.booking.cdcpBody}</p></div>
               </aside>
             </section>
